@@ -1,14 +1,22 @@
-import { Controller, Delete, Get, Patch } from '@nestjs/common';
+import { Controller, Delete, Get, Patch, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { AuthDto } from './dto';
+import { JwtGuard } from 'src/auth/guard';
+import { GetUsersProfil } from 'src/auth/decorator';
+import { Users } from '@prisma/client';
 
+@UseGuards(JwtGuard)
 @Controller('users')
 export class UserController {
   constructor(private usersService: UsersService) {}
 
-  @Get('')
-  getUserById() {}
+  @Get('profil')
+  getProfil(@GetUsersProfil() users: Users) {
+    return users;
+  }
 
-  @Delete('')
-  deleteUserById() {}
+  @Patch('profil')
+  editProfil() {}
+
+  @Delete('profil')
+  deleteProfil() {}
 }
