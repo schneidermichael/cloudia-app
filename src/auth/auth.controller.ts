@@ -8,13 +8,13 @@ export class AuthController {
 
 
   @Post('register')
-  register(@Body() dto: AuthDto) {
-    return this.authService.register(dto);
+  async register(@Body() dto: AuthDto) {
+    return await this.authService.register(dto);
   }
 
   @HttpCode(HttpStatus.OK)
   @Post('signin')
-  signin(@Body() dto: AuthDto) {
-    return this.authService.signin(dto);
+  async signin(@Body() dto: AuthDto) {
+    return await this.authService.signin(dto);
   }
 }
