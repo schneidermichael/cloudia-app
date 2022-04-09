@@ -5,21 +5,21 @@ import { IsEmail, IsNotEmpty, IsOptional, IsString } from "class-validator"
       
     @IsOptional()
     @IsString()
-    title
+    title: string
 
     @IsOptional()
     @IsString()
-    firstName
+    firstName: string
 
     @IsOptional()
     @IsString()
-    lastName
+    lastName: string
   
     @IsEmail()
     @IsNotEmpty()
-    eMail
+    eMail: string
 
     @IsOptional()
     @IsString()
-    pwd
+    pwd: string
   }

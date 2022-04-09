@@ -13,7 +13,7 @@ import { UsersService } from './users.service';
 import { JwtGuard } from '../auth/guard';
 import { GetUsersProfil } from '../auth/decorator';
 import { Users } from '@prisma/client';
-import { UserDto } from './dto/user.dto';
+import { UserDto } from './dto';
 
 @UseGuards(JwtGuard)
 @Controller('users')
@@ -26,9 +26,11 @@ export class UserController {
   }
 
   @Patch('profil/:id')
-  async editProfil(@GetUsersProfil() profil: Users, @Param('id', new ParseIntPipe()) id, @Body() user: UserDto) {
+  async editProfil(@GetUsersProfil() profil: Users, @Param('id', new ParseIntPipe()) id, @Body() dto: UserDto) {
+    console.log(profil);
+    console.log(dto);
     if (profil.id != id) throw new ForbiddenException('You are not allowed to edit this user')
-    return await this.usersService.editProfil(id, user)
+    return await this.usersService.editProfil(id, dto)
   }
 
   @Delete('profil/:id')
