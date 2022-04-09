@@ -3,6 +3,9 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './users/users.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
+import { AwsModule } from './provider/aws/aws.module';
+import { AzureModule } from './provider/azure/azure.module';
+import { GoogleModule } from './provider/google/google.module';
 
 @Module({
   imports: [
@@ -12,6 +15,9 @@ import { ConfigModule } from '@nestjs/config';
     }),
     UserModule,
     PrismaModule,
+    AwsModule,
+    AzureModule,
+    GoogleModule,
   ],
 })
 export class AppModule {}
