@@ -1,10 +1,12 @@
 import { PrismaClient } from '.prisma/client';
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable, OnModuleInit } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
+import * as argon from 'argon2';
 
 @Injectable()
-export class PrismaService extends PrismaClient {
-  constructor(configService: ConfigService) {
+export class PrismaService extends PrismaClient implements OnModuleInit {
+  constructor(private configService: ConfigService) {
     super({
       datasources: {
         db: {
@@ -13,6 +15,27 @@ export class PrismaService extends PrismaClient {
       },
     });
     //console.log(configService.get('DATABASE_URL'))
+  }
+
+  async onModuleInit() {
+    try {
+      const hash = await argon.hash(this.configService.get('ADMIN_PWD'));
+      const user = await this.users.create({
+        data: {
+          eMail: this.configService.get('ADMIN_MAIL'),
+          pwd: hash,
+        },
+      });
+      console.log('ADMIN ADDED!');
+    }
+    catch(error) {
+      if (error instanceof PrismaClientKnownRequestError) {
+        if (error.code == 'P2002') {
+          throw new ForbiddenException('FINE! Admin already added');
+        }
+      }
+      throw error;
+    }
   }
 
   cleanDb() {
