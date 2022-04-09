@@ -23,3 +23,14 @@ model Users {
   eMail     String @unique
   pwd       String
 }
+
+model AwsSimple {
+  InstanceType  String @unique
+  Memory        String
+  VCPUS         Int
+  Storage       String
+  Network       String
+  Cost          Float
+  MonthlyPrice  Float
+  SpotPrice     String
+}
