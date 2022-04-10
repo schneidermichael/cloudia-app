@@ -19,6 +19,13 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
 
   async onModuleInit() {
     try {
+      const admin = await this.users.findUnique({
+        where: {
+          eMail: this.configService.get('ADMIN_MAIL'),
+        },
+      });
+      if (admin) return;
+
       const hash = await argon.hash(this.configService.get('ADMIN_PWD'));
       const user = await this.users.create({
         data: {
@@ -27,8 +34,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
         },
       });
       console.log('ADMIN ADDED!');
-    }
-    catch(error) {
+    } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code == 'P2002') {
           throw new ForbiddenException('FINE! Admin already added');

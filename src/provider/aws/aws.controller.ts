@@ -1,4 +1,4 @@
-import { Controller, ForbiddenException, Get, UseGuards } from "@nestjs/common";
+import { Controller, ForbiddenException, Get, Param, UseGuards } from "@nestjs/common";
 import { Users } from "@prisma/client";
 import { GetUsersProfil } from "../../auth/decorator";
 import { JwtGuard } from "../../auth/guard";
@@ -9,19 +9,19 @@ import { AwsService } from "./aws.service";
 export class AwsController {
     constructor(private awsService: AwsService) {}
 
-    @Get()
+    @Get('')
     async getAwsSimpleDataAll(@GetUsersProfil() profil: Users) {
         if (profil.id != 1) throw new ForbiddenException('Your are not allowed! Admin only!')
         return await this.awsService.getAwsSimpleDataAll()
     }
 
-    @Get('/name')
-    async getAwsSimpleDataProduct(@GetUsersProfil() profil: Users) {
+    @Get(':product')
+    async getAwsSimpleDataProduct(@GetUsersProfil() profil: Users, @Param('product') product) {
         if (profil.id != 1) throw new ForbiddenException('Your are not allowed! Admin only!')
-        return await this.awsService.getAwsSimpleDataProduct()
+        return await this.awsService.getAwsSimpleDataProduct(product)
     }
 
-    @Get('options')
+    @Get('option')
     async getAwsSimpleOptions(@GetUsersProfil() profil: Users) {
         if (profil.id != 1) throw new ForbiddenException('Your are not allowed! Admin only!')
         return await this.awsService.getAwsSimpleDataOptions()
