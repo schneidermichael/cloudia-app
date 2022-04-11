@@ -22,20 +22,29 @@ export class UserController {
 
   @Get('profil')
   async getProfil(@GetUsersProfil() profil: Users) {
-    return profil
+    return profil;
   }
 
   @Patch('profil/:id')
-  async editProfil(@GetUsersProfil() profil: Users, @Param('id', new ParseIntPipe()) id, @Body() dto: UserDto) {
+  async editProfil(
+    @GetUsersProfil() profil: Users,
+    @Param('id', new ParseIntPipe()) id,
+    @Body() dto: UserDto,
+  ) {
     console.log(profil);
     console.log(dto);
-    if (profil.id != id) throw new ForbiddenException('You are not allowed to edit this user')
-    return await this.usersService.editProfil(id, dto)
+    if (profil.id != id)
+      throw new ForbiddenException('You are not allowed to edit this user');
+    return this.usersService.editProfil(id, dto);
   }
 
   @Delete('profil/:id')
-  async deleteProfil(@GetUsersProfil() profil: Users, @Param('id', new ParseIntPipe()) id) {
-    if (profil.id != id) throw new ForbiddenException('You are not allowed to delete this user')
-    return await this.usersService.deleteProfil(id)
+  async deleteProfil(
+    @GetUsersProfil() profil: Users,
+    @Param('id', new ParseIntPipe()) id,
+  ) {
+    if (profil.id != id)
+      throw new ForbiddenException('You are not allowed to delete this user');
+    return this.usersService.deleteProfil(id);
   }
 }
