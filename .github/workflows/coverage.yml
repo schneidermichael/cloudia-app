@@ -15,14 +15,12 @@ jobs:
 
     - name: Use Node.js 16.x
       uses: actions/setup-node@v3
-      with:
-        node-version: 16.x
 
     - name: Install dependencies
       run: npm install
 
     - name: Run the tests
-      run: npm run test --coverage --passWithNoTests
+      run: yarn test --passWithNoTests
       
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v3.0.0
