@@ -12,18 +12,18 @@ export class AwsController {
     @Get('')
     async getAwsSimpleDataAll(@GetUsersProfil() profil: Users) {
         if (profil.id != 1) throw new ForbiddenException('Your are not allowed! Admin only!')
-        return await this.awsService.getAwsSimpleDataAll()
+        return this.awsService.getAwsSimpleDataAll()
     }
 
     @Get(':product')
     async getAwsSimpleDataProduct(@GetUsersProfil() profil: Users, @Param('product') product) {
         if (profil.id != 1) throw new ForbiddenException('Your are not allowed! Admin only!')
-        return await this.awsService.getAwsSimpleDataProduct(product)
+        return this.awsService.getAwsSimpleDataProduct(product)
     }
 
     @Get('option')
     async getAwsSimpleOptions(@GetUsersProfil() profil: Users) {
         if (profil.id != 1) throw new ForbiddenException('Your are not allowed! Admin only!')
-        return await this.awsService.getAwsSimpleDataOptions()
+        return this.awsService.getAwsSimpleDataOptions()
     }
 }
