@@ -1,12 +1,10 @@
 import { ForbiddenException, Injectable, Logger } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { HttpService } from '@nestjs/axios';
-import { lastValueFrom, Observable } from 'rxjs';
 import { ConfigService } from '@nestjs/config';
 import { PrismaService } from '../../prisma/prisma.service';
 import { AwsSimpleDto } from './dto';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
-import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class AwsTaskService {
@@ -20,12 +18,12 @@ export class AwsTaskService {
 
   @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
   async collectAwsSimpleData() {
-    const response = await this.httpService
+    const response = this.httpService
       .get(this.configService.get('AWS_SIMPLE_API'))
       .subscribe((response) => {
         const json = response.data;
 
-        Object.keys(json).forEach((value, key) => {
+        Object.keys(json).forEach((value, _key) => {
           json[value].forEach((AwsSimpleDto) => {
             this.storeAwsSimpleData(AwsSimpleDto);
           });
@@ -34,9 +32,8 @@ export class AwsTaskService {
   }
 
   async storeAwsSimpleData(dto: AwsSimpleDto) {
-    console.log(dto);
     try {
-      const user = await this.prisma.awsSimple.create({ data: dto });
+      await this.prisma.awsSimple.create({ data: dto });
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code == 'P2002') {

@@ -27,7 +27,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
       if (admin) return;
 
       const hash = await argon.hash(this.configService.get('ADMIN_PWD'));
-      const user = await this.users.create({
+      await this.users.create({
         data: {
           eMail: this.configService.get('ADMIN_MAIL'),
           pwd: hash,
