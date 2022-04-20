@@ -8,23 +8,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-      with:
-        node-version: 16.x
+      - uses: actions/checkout@v3
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          cache: "npm"
 
-    - name: Use Node.js 16.x
-      uses: actions/setup-node@v3
+      - name: Install dependencies
+        run: npm install
 
-    - name: Install dependencies
-      run: npm install
-
-    - name: Run the tests
-      run: yarn test --passWithNoTests
+      - name: Run the tests
+        run: yarn test --passWithNoTests
       
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v3.0.0
-      with:
-        token: ${{ secrets.CODECOV_TOKEN }}
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3.0.0
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
 
 
