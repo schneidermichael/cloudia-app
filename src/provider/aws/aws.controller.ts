@@ -11,7 +11,7 @@ export class AwsController {
 
     @Get('')
     async getAwsSimpleDataAll(@GetUsersProfil() profil: Users) {
-        if (profil.id != 1) throw new ForbiddenException('Your are not allowed! Admin only!')
+        //if (profil.id != 1) throw new ForbiddenException('Your are not allowed! Admin only!')
         return this.awsService.getAwsSimpleDataAll()
     }
 

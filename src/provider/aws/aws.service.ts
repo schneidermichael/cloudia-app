@@ -46,12 +46,30 @@ export class AwsService {
 
   async getAwsSimpleDataOptions() {
     try {
+
       const awsSimple = await this.prisma.awsSimple.findMany({});
       
-      //TODO EXTRACT ALL MEMORY / VCPUS etc TYPES and return it
+      let InstanceTypeMap = new Set<String>();
+      let MemoryMap = new Set<String>();
+      let VCPUSMap = new Set<String>();
+      let StorageMap = new Set<String>();
+      let NetworkMap = new Set<String>();
+      let jObj;
+
+
+      Object.keys(awsSimple).forEach((value, _key) => {
+        InstanceTypeMap.add(awsSimple[value].InstanceType);
+        MemoryMap.add(awsSimple[value].Memory);
+        VCPUSMap.add(awsSimple[value].VCPUS);
+        StorageMap.add(awsSimple[value].Storage);
+        NetworkMap.add(awsSimple[value].Network);
+      });
       
-      
-      return 'TODO';
+      jObj["InstanceType"] = InstanceTypeMap;
+
+
+      return jObj;
+
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code == 'P2008') {
