@@ -6,7 +6,7 @@ import { ConfigModule } from '@nestjs/config';
 import { AwsModule } from './provider/aws/aws.module';
 import { AzureModule } from './provider/azure/azure.module';
 import { GoogleModule } from './provider/google/google.module';
-import { HttpModule } from '@nestjs/axios'
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
