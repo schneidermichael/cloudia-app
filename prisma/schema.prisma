@@ -23,6 +23,9 @@ model Users {
 
   eMail     String @unique
   pwd       String
+
+  isActive  Boolean @default(false)
+  confirmToken String? @unique
 }
 
 model AwsSimple {

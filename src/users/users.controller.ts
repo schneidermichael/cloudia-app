@@ -6,7 +6,7 @@ import {
   Get,
   Param,
   ParseIntPipe,
-  Patch,
+  Put,
   UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
@@ -25,7 +25,7 @@ export class UserController {
     return profil;
   }
 
-  @Patch('profil/:id')
+  @Put('profil/:id')
   async editProfil(
     @GetUsersProfil() profil: Users,
     @Param('id', new ParseIntPipe()) id,
