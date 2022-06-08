@@ -23,11 +23,11 @@ export class UsersService {
           id: id,
         },
         data: {
-          title: dto.title,
-          firstName: dto.firstName,
-          lastName: dto.lastName,
-          eMail: dto.eMail,
-          pwd: await argon.hash(dto.pwd),
+          title: dto.title || undefined,
+          firstName: dto.firstName || undefined,
+          lastName: dto.lastName || undefined,
+          eMail: dto.eMail || undefined,
+          pwd:(dto.pwd) ? await argon.hash(dto.pwd) : undefined || undefined,
         },
       });
       if (user) delete user.pwd;
