@@ -1,4 +1,4 @@
-import { ForbiddenException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
+import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { AuthDto } from './dto';
 import * as argon from 'argon2';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
@@ -6,7 +6,7 @@ import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { PrismaService } from '../prisma/prisma.service';
 import { MailService } from '../mail/mail.service';
-import { Http2ServerResponse } from 'http2';
+import { UserDto } from "../users/dto";
 
 @Injectable()
 export class AuthService {
@@ -17,13 +17,15 @@ export class AuthService {
     private mailService: MailService,
   ) {}
 
-  async register(dto: AuthDto) {
+  async register(dto: UserDto) {
     try {
       const token = Math.floor(100000000 + Math.random() * 9000000).toString();
 
       const hash = await argon.hash(dto.pwd);
       const user = await this.prisma.users.create({
         data: {
+          firstName: dto.firstName,
+          lastName: dto.lastName,
           eMail: dto.eMail,
           pwd: hash,
           confirmToken: token,
@@ -33,7 +35,6 @@ export class AuthService {
       console.log(user.eMail);
       await this.mailService.sendUserConfirmation(user, token);
       return { "user": user.eMail, "status": "please activate" };
-     // return this.signToken(user.id, user.eMail);
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code == 'P2002') {
@@ -65,7 +66,6 @@ export class AuthService {
           isActive: true
         },
       });
-      //if (user) delete user.pwd;
       return { "user": user.eMail, "status": "isActivated" };
 
     } catch (error) {
