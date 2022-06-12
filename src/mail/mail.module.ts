@@ -11,16 +11,16 @@ import { join } from 'path';
       // transport: 'smtps://user@example.com:topsecret@smtp.example.com',
       // or
       transport: {
-        host: 'smtp.mailtrap.io',
+        host: 'smtp.sendgrid.net',
         secure: false,
-        port: 2525,
+        port: 25, //25,586 - 465 - ssl
         auth: {
-          user: 'bf9e0c47df2d8b',
-          pass: 'a206ed45278b58',
+          user: 'apikey',
+          pass: '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',
         },
       },
       defaults: {
-        from: '"No Reply Cloudia" <noreply@cloudia.de>',
+        from: '"Cloudia App" <cloudiaapp@gmail.com>',
       },
       template: {
         dir: join(__dirname, 'templates'),
