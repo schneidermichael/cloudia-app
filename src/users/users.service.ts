@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
 import * as argon from 'argon2';
 import { PrismaService } from '../prisma/prisma.service';
-import { UserDto } from './dto/user.dto';
+import { UserDto } from "./dto";
 
 @Injectable()
 export class UsersService {
@@ -27,7 +27,7 @@ export class UsersService {
           firstName: dto.firstName || undefined,
           lastName: dto.lastName || undefined,
           eMail: dto.eMail || undefined,
-          pwd:(dto.pwd) ? await argon.hash(dto.pwd) : undefined || undefined,
+          pwd:(dto.pwd) ? await argon.hash(dto.pwd) : undefined,
         },
       });
       if (user) delete user.pwd;
