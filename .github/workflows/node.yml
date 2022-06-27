@@ -1,4 +1,4 @@
-name: Running Code Coverage
+name: Node.js CI
 
 on: [push, pull_request]
 
