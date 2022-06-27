@@ -1,7 +1,4 @@
-import {
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
 import { PrismaService } from '../../prisma/prisma.service';
 import { AwsSimpleDto } from './dto';
@@ -46,16 +43,14 @@ export class AwsService {
 
   async getAwsSimpleDataOptions() {
     try {
-
       const awsSimple = await this.prisma.awsSimple.findMany({});
-      
-      let InstanceTypeMap = new Set<String>();
-      let MemoryMap = new Set<String>();
-      let VCPUSMap = new Set<String>();
-      let StorageMap = new Set<String>();
-      let NetworkMap = new Set<String>();
-      let jObj;
 
+      const InstanceTypeMap = new Set<string>();
+      const MemoryMap = new Set<string>();
+      const VCPUSMap = new Set<string>();
+      const StorageMap = new Set<string>();
+      const NetworkMap = new Set<string>();
+      let jObj;
 
       Object.keys(awsSimple).forEach((value, _key) => {
         InstanceTypeMap.add(awsSimple[value].InstanceType);
@@ -64,12 +59,10 @@ export class AwsService {
         StorageMap.add(awsSimple[value].Storage);
         NetworkMap.add(awsSimple[value].Network);
       });
-      
-      jObj["InstanceType"] = InstanceTypeMap;
 
+      jObj['InstanceType'] = InstanceTypeMap;
 
       return jObj;
-
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code == 'P2008') {

@@ -18,8 +18,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run the tests
-        run: yarn test --passWithNoTests
+      - name: Run the tests + coverage
+        run: yarn test:cov
       
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3.0.0
