@@ -9,6 +9,8 @@ describe('AuthDto', () => {
     authDto.eMail = 'Email';
   });
 
+
+
   describe('constructor', () => {
     it('should return Password', () => {
       expect(authDto.pwd).toBe('Password');

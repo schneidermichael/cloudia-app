@@ -19,7 +19,7 @@ import { HttpModule } from '@nestjs/axios';
     AwsModule,
     AzureModule,
     GoogleModule,
-    HttpModule
+    HttpModule,
   ],
 })
 export class AppModule {}

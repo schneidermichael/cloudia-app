@@ -1,3 +1,4 @@
+[![Node.js CI](https://github.com/schneidermichael/cloudia-app/actions/workflows/node.yml/badge.svg)](https://github.com/schneidermichael/cloudia-app/actions/workflows/node.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![codecov](https://codecov.io/gh/schneidermichael/cloudia-app/branch/main/graph/badge.svg?token=P5B0QY8RQ8)](https://codecov.io/gh/schneidermichael/cloudia-app)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=schneidermichael_cloudia-app&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=schneidermichael_cloudia-app)

@@ -13,8 +13,8 @@ export class MailService {
       to: user.eMail,
       //from: '"Support Team" <support@example.com>', // override default from
       subject: 'Welcome to Cloudia App! Confirm your Email',
-      template: 'confirmation', 
-      context: { 
+      template: 'confirmation',
+      context: {
         //name: user.firstName + " " + user.lastName,
         url,
       },
@@ -28,8 +28,8 @@ export class MailService {
       to: user.eMail,
       //from: '"Support Team" <support@example.com>', // override default from
       subject: 'Reset your Cloudia App Password! Confirm your new Password',
-      template: 'resetpwd', 
-      context: { 
+      template: 'resetpwd',
+      context: {
         //name: user.firstName + " " + user.lastName,
         pwd,
         url,

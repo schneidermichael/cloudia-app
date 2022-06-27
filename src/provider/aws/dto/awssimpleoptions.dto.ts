@@ -1,4 +1,3 @@
 export class AwsSimpleOptionsDto {
-
-    memoryMap
+  memoryMap;
 }

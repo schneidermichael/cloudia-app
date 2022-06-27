@@ -1,1 +1,2 @@
-export * from './awssimple.dto'
+/* istanbul ignore file */
+export * from './awssimple.dto';
