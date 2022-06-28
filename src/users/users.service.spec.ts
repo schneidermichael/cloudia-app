@@ -5,7 +5,6 @@ import { ConfigService } from '@nestjs/config';
 
 describe('UsersService', () => {
   let service: UsersService;
-  let prisma: PrismaService;
 
   beforeEach(async () => {
     const moduleRef = await Test.createTestingModule({
@@ -14,7 +13,7 @@ describe('UsersService', () => {
     }).compile();
 
     service = moduleRef.get<UsersService>(UsersService);
-    prisma = moduleRef.get<PrismaService>(PrismaService);
+    moduleRef.get<PrismaService>(PrismaService);
   });
 
   it('should be defined', () => {

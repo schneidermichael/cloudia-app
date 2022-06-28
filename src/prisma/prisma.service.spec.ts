@@ -1,7 +1,6 @@
 import { Test } from '@nestjs/testing';
-import { PrismaService } from '../prisma/prisma.service';
+import { PrismaService } from "./prisma.service";
 import { ConfigService } from '@nestjs/config';
-import { PrismaClientInitializationError } from "@prisma/client/runtime";
 
 describe('PrismaService', () => {
   let prisma: PrismaService;
