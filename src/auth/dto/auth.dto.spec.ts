@@ -12,10 +12,10 @@ describe('AuthDto', () => {
 
 
   describe('constructor', () => {
-    it('should return Password', () => {
+    it('should return pwd', () => {
       expect(authDto.pwd).toBe('Password');
     });
-    it('should return Email', () => {
+    it('should return eMail', () => {
       expect(authDto.eMail).toBe('Email');
     });
   });
