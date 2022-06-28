@@ -23,6 +23,7 @@ export class AwsService {
     }
   }
 
+  /* istanbul ignore next */
   async getAwsSimpleDataProduct(product: string) {
     try {
       const awsSimple: AwsSimpleDto = await this.prisma.awsSimple.findUnique({
@@ -41,6 +42,7 @@ export class AwsService {
     }
   }
 
+  /* istanbul ignore next */
   async getAwsSimpleDataOptions() {
     try {
       const awsSimple = await this.prisma.awsSimple.findMany({});

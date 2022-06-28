@@ -31,7 +31,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
         data: {
           eMail: this.configService.get('ADMIN_MAIL'),
           pwd: hash,
-          isActive: true
+          isActive: true,
         },
       });
       console.log('ADMIN ADDED!');

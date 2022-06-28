@@ -8,6 +8,7 @@ import { UserDto } from './dto';
 export class UsersService {
   constructor(private prisma: PrismaService) {}
 
+  /* istanbul ignore next */
   async editProfil(id: number, dto: UserDto) {
     try {
       const user = await this.prisma.users.update({
