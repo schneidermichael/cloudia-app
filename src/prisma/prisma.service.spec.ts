@@ -19,15 +19,4 @@ describe('PrismaService', () => {
     expect(prisma).toBeDefined();
   });
 
-  it('test cleandb', () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    prisma.cleanDb().catch(new PrismaClientInitializationError());
-  });
-
-  it('test onModuleInit', () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    prisma.onModuleInit().catch(new PrismaClientInitializationError());
-  });
 });
