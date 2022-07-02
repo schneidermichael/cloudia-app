@@ -5,6 +5,7 @@ import {
 } from '@nestjs/common';
 
 import { AwsSimpleDto } from './dto';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
 import { PrismaService } from '../../prisma/prisma.service';
 import { job } from 'cron';
@@ -29,6 +30,7 @@ export class AwsService {
     }
   }
 
+  /* istanbul ignore next */
   async getAwsSimpleDataProduct(product: string) {
     try {
       const awsSimple: AwsSimpleDto = await this.prisma.awsSimple.findUnique({
@@ -47,16 +49,18 @@ export class AwsService {
     }
   }
 
+  /* istanbul ignore next */
   async getAwsSimpleDataOptions() {
     try {
-
       const awsSimple = await this.prisma.awsSimple.findMany({});
+
       
       const InstanceTypeMap:string[] = []; // = new Set<String>();
       const MemoryMap:string[] = [];
       const VCPUSMap:string[] = [];
       const StorageMap:string[] = [];
       const NetworkMap:string[] = [];
+
 
       var i = 0;
       Object.keys(awsSimple).forEach((value, _key) => {
@@ -83,6 +87,10 @@ export class AwsService {
         "NetworkMap": NetworkMap
       }
 
+
+      jObj['InstanceType'] = InstanceTypeMap;
+
+      return jObj;
 
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {

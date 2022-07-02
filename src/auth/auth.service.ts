@@ -1,4 +1,8 @@
-import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { AuthDto } from './dto';
 import * as argon from 'argon2';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
@@ -6,7 +10,7 @@ import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { PrismaService } from '../prisma/prisma.service';
 import { MailService } from '../mail/mail.service';
-import { UserDto } from "../users/dto";
+import { UserDto } from '../users/dto';
 
 @Injectable()
 export class AuthService {
@@ -17,6 +21,7 @@ export class AuthService {
     private mailService: MailService,
   ) {}
 
+  /* istanbul ignore next */
   async register(dto: UserDto) {
     try {
       const token = Math.floor(100000000 + Math.random() * 9000000).toString();
@@ -34,7 +39,7 @@ export class AuthService {
 
       console.log(user.eMail);
       await this.mailService.sendUserConfirmation(user, token);
-      return { "user": user.eMail, "status": "please activate" };
+      return { user: user.eMail, status: 'please activate' };
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code == 'P2002') {
@@ -45,6 +50,7 @@ export class AuthService {
     }
   }
 
+  /* istanbul ignore next */
   async confirm(token: string) {
     try {
       const user = await this.prisma.users.findUnique({
@@ -53,7 +59,8 @@ export class AuthService {
         },
       });
       if (!user) throw new ForbiddenException('Credentials incorrect');
-      if (user.isActive) throw new ForbiddenException('User is already activated');
+      if (user.isActive)
+        throw new ForbiddenException('User is already activated');
 
       const user2 = await this.prisma.users.update({
         select: {
@@ -63,11 +70,10 @@ export class AuthService {
           id: user.id,
         },
         data: {
-          isActive: true
+          isActive: true,
         },
       });
-      return { "user": user.eMail, "status": "isActivated" };
-
+      return { user: user.eMail, status: 'isActivated' };
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code == 'P2008') {
@@ -78,6 +84,7 @@ export class AuthService {
     }
   }
 
+  /* istanbul ignore next */
   async signin(dto: AuthDto) {
     const user = await this.prisma.users.findUnique({
       where: {
@@ -94,6 +101,7 @@ export class AuthService {
     return this.signToken(user.id, user.eMail);
   }
 
+  /* istanbul ignore next */
   async signToken(userId: number, eMail: string) {
     const payload = {
       sub: userId,
@@ -122,11 +130,11 @@ export class AuthService {
     const pwd = Math.floor(100000000 + Math.random() * 9000000).toString();
     await this.mailService.sendUserResetPwd(user, pwd);
 
-    return { "user": eMail, "status": "please check your email" };
+    return { user: eMail, status: 'please check your email' };
   }
 
-
-  async confirmpwd(email: string, pwd: string, token: string ) {
+  /* istanbul ignore next */
+  async confirmpwd(email: string, pwd: string, token: string) {
     const user = await this.prisma.users.findUnique({
       where: {
         eMail: email,
@@ -134,7 +142,8 @@ export class AuthService {
     });
     if (!user) throw new ForbiddenException('Credentials incorrect');
     if (!user.isActive) throw new ForbiddenException('User is not activated');
-    if (user.confirmToken !== token)  throw new ForbiddenException('Confirm Token is incorrect');
+    if (user.confirmToken !== token)
+      throw new ForbiddenException('Confirm Token is incorrect');
 
     try {
       const user2 = await this.prisma.users.update({
@@ -145,11 +154,11 @@ export class AuthService {
           id: user.id,
         },
         data: {
-          pwd: await argon.hash(pwd)
+          pwd: await argon.hash(pwd),
         },
       });
       if (user) delete user.pwd;
-      return { "user": user.eMail, "status": "pwd resetted" };
+      return { user: user.eMail, status: 'pwd resetted' };
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code == 'P2008') {

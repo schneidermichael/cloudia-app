@@ -7,7 +7,6 @@ import { AwsModule } from './provider/aws/aws.module';
 import { AzureModule } from './provider/azure/azure.module';
 import { GoogleModule } from './provider/google/google.module';
 import { HttpModule } from '@nestjs/axios';
-import { MailModule } from './mail/mail.module';
 
 @Module({
   imports: [
@@ -21,7 +20,6 @@ import { MailModule } from './mail/mail.module';
     AzureModule,
     GoogleModule,
     HttpModule,
-    //MailModule,
   ],
 })
 export class AppModule {}

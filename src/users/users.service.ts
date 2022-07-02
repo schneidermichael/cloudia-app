@@ -2,12 +2,13 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
 import * as argon from 'argon2';
 import { PrismaService } from '../prisma/prisma.service';
-import { UserDto } from "./dto";
+import { UserDto } from './dto';
 
 @Injectable()
 export class UsersService {
   constructor(private prisma: PrismaService) {}
 
+  /* istanbul ignore next */
   async editProfil(id: number, dto: UserDto) {
     try {
       const user = await this.prisma.users.update({
@@ -27,7 +28,7 @@ export class UsersService {
           firstName: dto.firstName || undefined,
           lastName: dto.lastName || undefined,
           eMail: dto.eMail || undefined,
-          pwd:(dto.pwd) ? await argon.hash(dto.pwd) : undefined,
+          pwd: dto.pwd ? await argon.hash(dto.pwd) : undefined,
         },
       });
       if (user) delete user.pwd;

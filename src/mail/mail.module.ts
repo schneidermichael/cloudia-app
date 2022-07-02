@@ -30,9 +30,9 @@ import { join } from 'path';
         },
       },
     }),
-    MailerModule
+    MailerModule,
   ],
   providers: [MailService],
-  exports: [MailService], 
+  exports: [MailService],
 })
 export class MailModule {}

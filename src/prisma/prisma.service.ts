@@ -17,6 +17,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
     //console.log(configService.get('DATABASE_URL'))
   }
 
+  /* istanbul ignore next */
   async onModuleInit() {
     try {
       const admin = await this.users.findUnique({
@@ -31,7 +32,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
         data: {
           eMail: this.configService.get('ADMIN_MAIL'),
           pwd: hash,
-          isActive: true
+          isActive: true,
         },
       });
       console.log('ADMIN ADDED!');
@@ -45,6 +46,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
     }
   }
 
+  /* istanbul ignore next */
   cleanDb() {
     return this.$transaction([this.users.deleteMany()]);
   }
