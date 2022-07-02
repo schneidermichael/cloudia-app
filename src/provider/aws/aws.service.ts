@@ -1,9 +1,4 @@
-import {
-  ForbiddenException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
-
+import { ForbiddenException, } from '@nestjs/common';
 import { AwsSimpleDto } from './dto';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
@@ -76,8 +71,6 @@ export class AwsService {
           NetworkMap.push(awsSimple[value].Network);
         i++;
       });
-      
-      //jObj["InstanceType"] = InstanceTypeMap;
 
       return {
         "InstanceType": InstanceTypeMap,
@@ -86,11 +79,6 @@ export class AwsService {
         "StorageMap": StorageMap,
         "NetworkMap": NetworkMap
       }
-
-
-      jObj['InstanceType'] = InstanceTypeMap;
-
-      return jObj;
 
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
