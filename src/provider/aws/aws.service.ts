@@ -1,7 +1,14 @@
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+
+import { AwsSimpleDto } from './dto';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
 import { PrismaService } from '../../prisma/prisma.service';
-import { AwsSimpleDto } from './dto';
+import { job } from 'cron';
 
 @Injectable()
 export class AwsService {
@@ -47,28 +54,71 @@ export class AwsService {
     try {
       const awsSimple = await this.prisma.awsSimple.findMany({});
 
-      const InstanceTypeMap = new Set<string>();
-      const MemoryMap = new Set<string>();
-      const VCPUSMap = new Set<string>();
-      const StorageMap = new Set<string>();
-      const NetworkMap = new Set<string>();
-      let jObj;
+      
+      const InstanceTypeMap:string[] = []; // = new Set<String>();
+      const MemoryMap:string[] = [];
+      const VCPUSMap:string[] = [];
+      const StorageMap:string[] = [];
+      const NetworkMap:string[] = [];
 
+
+      var i = 0;
       Object.keys(awsSimple).forEach((value, _key) => {
-        InstanceTypeMap.add(awsSimple[value].InstanceType);
-        MemoryMap.add(awsSimple[value].Memory);
-        VCPUSMap.add(awsSimple[value].VCPUS);
-        StorageMap.add(awsSimple[value].Storage);
-        NetworkMap.add(awsSimple[value].Network);
+        if (!(InstanceTypeMap.includes(awsSimple[value].InstanceType)))
+          InstanceTypeMap.push(awsSimple[value].InstanceType);
+        if (!(MemoryMap.includes(awsSimple[value].Memory)))
+          MemoryMap.push(awsSimple[value].Memory);
+        if (!(VCPUSMap.includes(awsSimple[value].VCPUS)))
+          VCPUSMap.push(awsSimple[value].VCPUS);
+        if (!(StorageMap.includes(awsSimple[value].Storage)))
+          StorageMap.push(awsSimple[value].Storage);
+        if (!(NetworkMap.includes(awsSimple[value].Network)))
+          NetworkMap.push(awsSimple[value].Network);
+        i++;
       });
+      
+      //jObj["InstanceType"] = InstanceTypeMap;
+
+      return {
+        "InstanceType": InstanceTypeMap,
+        "MemoyMap": MemoryMap,
+        "VCPUSMap": VCPUSMap,
+        "StorageMap": StorageMap,
+        "NetworkMap": NetworkMap
+      }
+
 
       jObj['InstanceType'] = InstanceTypeMap;
 
       return jObj;
+
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code == 'P2008') {
           throw new NotFoundException('No AwsSimple data found!');
+        }
+      }
+      throw error;
+    }
+  }
+
+  async calculate(product: string, hours: number) {
+    try {
+      const query = await this.prisma.awsSimple.findUnique({
+        where: {
+          InstanceType: product,
+        },
+      });
+      if (!query) throw new ForbiddenException('Product not found!');
+
+
+
+      return { "price": query.MonthlyPrice / 750 * hours };
+
+    } catch (error) {
+      if (error instanceof PrismaClientKnownRequestError) {
+        if (error.code == 'P2008') {
+          throw new NotFoundException('Product not found');
         }
       }
       throw error;
