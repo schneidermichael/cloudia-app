@@ -1,10 +1,11 @@
-import { ForbiddenException, Injectable, Logger } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
-import { HttpService } from '@nestjs/axios';
-import { ConfigService } from '@nestjs/config';
-import { PrismaService } from '../../prisma/prisma.service';
+import { ForbiddenException, Injectable, Logger } from '@nestjs/common';
+
 import { AwsSimpleDto } from './dto';
+import { ConfigService } from '@nestjs/config';
+import { HttpService } from '@nestjs/axios';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
+import { PrismaService } from '../../prisma/prisma.service';
 
 @Injectable()
 export class AwsTaskService {
