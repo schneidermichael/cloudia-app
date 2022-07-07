@@ -1,5 +1,5 @@
 import { Test } from '@nestjs/testing';
-import { PrismaService } from "./prisma.service";
+import { PrismaService } from './prisma.service';
 import { ConfigService } from '@nestjs/config';
 
 describe('PrismaService', () => {
@@ -17,5 +17,4 @@ describe('PrismaService', () => {
   it('should be defined', () => {
     expect(prisma).toBeDefined();
   });
-
 });

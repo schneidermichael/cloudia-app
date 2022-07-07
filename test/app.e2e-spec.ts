@@ -127,21 +127,18 @@ describe('App e2e', () => {
         return pactum
           .spec()
           .get('/users/profil')
-          .withHeaders({Authorization: 'Bearer $S{access_token}'})
+          .withHeaders({ Authorization: 'Bearer $S{access_token}' })
           .expectStatus(200);
       });
       it('Get Users Profil Unauthorized (wrong token)', () => {
         return pactum
           .spec()
           .get('/users/profil')
-          .withHeaders({Authorization: 'Bearer wrong_token'})
+          .withHeaders({ Authorization: 'Bearer wrong_token' })
           .expectStatus(401);
       });
       it('Get Users Profil Unauthorized (no token)', () => {
-        return pactum
-          .spec()
-          .get('/users/profil')
-          .expectStatus(401);
+        return pactum.spec().get('/users/profil').expectStatus(401);
       });
     });
 
