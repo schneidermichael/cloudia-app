@@ -3,22 +3,9 @@ services:
   cloudia-db:
     image: postgres:13
     ports:
-      - 5434:5432
+      - 5432:5432
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: cloudia-db
-    networks:
-      - cloudia
-  cloudia-test-db:
-    image: postgres:13
-    ports:
-      - 5435:5432
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: cloudia-db
-    networks:
-      - cloudia
-networks:
-  cloudia:
+
