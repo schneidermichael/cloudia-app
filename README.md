@@ -16,6 +16,9 @@ $ npm install
 ## Running the app
 
 ```bash
+# before development (running database is necessary)
+$ npx prisma migrate dev
+
 # development
 $ yarn run start
 
@@ -41,13 +44,18 @@ $ yarn pretest:e2e
 # e2e tests
 $ yarn test:e2e
 
-# test coverage (todo)
+# test coverage
 $ yarn test:cov
 ```
 
 ## Swagger
 
 `http://localhost:3000/api`
+
+## Database changes
+```
+$ npx prisma migrate dev
+```
 
 ## License
 

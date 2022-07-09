@@ -10,7 +10,7 @@ import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { PrismaService } from '../prisma/prisma.service';
 import { MailService } from '../mail/mail.service';
-import { UserDto } from '../users/dto';
+import { UserDto } from '../user/dto';
 
 @Injectable()
 export class AuthService {
@@ -27,7 +27,7 @@ export class AuthService {
       const token = Math.floor(100000000 + Math.random() * 9000000).toString();
 
       const hash = await argon.hash(dto.pwd);
-      const user = await this.prisma.users.create({
+      const user = await this.prisma.user.create({
         data: {
           firstName: dto.firstName,
           lastName: dto.lastName,
@@ -53,7 +53,7 @@ export class AuthService {
   /* istanbul ignore next */
   async confirm(token: string) {
     try {
-      const user = await this.prisma.users.findUnique({
+      const user = await this.prisma.user.findUnique({
         where: {
           confirmToken: token,
         },
@@ -62,7 +62,7 @@ export class AuthService {
       if (user.isActive)
         throw new ForbiddenException('User is already activated');
 
-      const user2 = await this.prisma.users.update({
+      await this.prisma.user.update({
         select: {
           isActive: true,
         },
@@ -86,7 +86,7 @@ export class AuthService {
 
   /* istanbul ignore next */
   async signin(dto: AuthDto) {
-    const user = await this.prisma.users.findUnique({
+    const user = await this.prisma.user.findUnique({
       where: {
         eMail: dto.eMail,
       },
@@ -119,7 +119,7 @@ export class AuthService {
   }
 
   async resetpwd(eMail: string) {
-    const user = await this.prisma.users.findUnique({
+    const user = await this.prisma.user.findUnique({
       where: {
         eMail: eMail,
       },
@@ -135,7 +135,7 @@ export class AuthService {
 
   /* istanbul ignore next */
   async confirmpwd(email: string, pwd: string, token: string) {
-    const user = await this.prisma.users.findUnique({
+    const user = await this.prisma.user.findUnique({
       where: {
         eMail: email,
       },
@@ -146,7 +146,7 @@ export class AuthService {
       throw new ForbiddenException('Confirm Token is incorrect');
 
     try {
-      const user2 = await this.prisma.users.update({
+      await this.prisma.user.update({
         select: {
           pwd: true,
         },

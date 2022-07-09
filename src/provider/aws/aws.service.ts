@@ -1,9 +1,11 @@
-import { ForbiddenException, } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { AwsSimpleDto } from './dto';
-import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
 import { PrismaService } from '../../prisma/prisma.service';
-import { job } from 'cron';
 
 @Injectable()
 export class AwsService {

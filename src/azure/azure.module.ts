@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { ScheduleModule } from '@nestjs/schedule';
 import { AzureService } from './azure.service';
+import { AzureController } from './azure.controller';
 
 @Module({
-  imports: [ScheduleModule.forRoot()],
-  providers: [AzureService],
+  controllers: [AzureController],
+  providers: [AzureService]
 })
 export class AzureModule {}

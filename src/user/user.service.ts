@@ -5,13 +5,13 @@ import { PrismaService } from '../prisma/prisma.service';
 import { UserDto } from './dto';
 
 @Injectable()
-export class UsersService {
+export class UserService {
   constructor(private prisma: PrismaService) {}
 
   /* istanbul ignore next */
   async editProfil(id: number, dto: UserDto) {
     try {
-      const user = await this.prisma.users.update({
+      const user = await this.prisma.user.update({
         select: {
           id: true,
           title: Boolean(dto.title),
@@ -45,7 +45,7 @@ export class UsersService {
 
   async deleteProfil(id: number) {
     try {
-      const user = await this.prisma.users.delete({
+      const user = await this.prisma.user.delete({
         where: {
           id: id,
         },

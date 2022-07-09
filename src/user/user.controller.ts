@@ -9,25 +9,25 @@ import {
   Put,
   UseGuards,
 } from '@nestjs/common';
-import { UsersService } from './users.service';
+import { UserService } from './user.service';
 import { JwtGuard } from '../auth/guard';
 import { GetUsersProfil } from '../auth/decorator';
-import { Users } from '@prisma/client';
+import { User } from '@prisma/client';
 import { UserDto } from './dto';
 
 @UseGuards(JwtGuard)
-@Controller('users')
+@Controller('user')
 export class UserController {
-  constructor(private usersService: UsersService) {}
+  constructor(private usersService: UserService) {}
 
   @Get('profil')
-  async getProfil(@GetUsersProfil() profil: Users) {
+  async getProfil(@GetUsersProfil() profil: User) {
     return profil;
   }
 
   @Put('profil/:id')
   async editProfil(
-    @GetUsersProfil() profil: Users,
+    @GetUsersProfil() profil: User,
     @Param('id', new ParseIntPipe()) id,
     @Body() dto: UserDto,
   ) {
@@ -40,7 +40,7 @@ export class UserController {
 
   @Delete('profil/:id')
   async deleteProfil(
-    @GetUsersProfil() profil: Users,
+    @GetUsersProfil() profil: User,
     @Param('id', new ParseIntPipe()) id,
   ) {
     if (profil.id != id)

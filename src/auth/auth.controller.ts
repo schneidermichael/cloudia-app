@@ -3,7 +3,7 @@ import { query } from 'express';
 import { AuthService } from './auth.service';
 import { AuthDto } from './dto';
 import { ResetPwdDto } from './dto/resetpwd.dto';
-import { UserDto } from "../users/dto";
+import { UserDto } from "../user/dto";
 
 @Controller('auth')
 export class AuthController {

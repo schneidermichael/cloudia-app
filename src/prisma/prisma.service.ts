@@ -14,13 +14,12 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
         },
       },
     });
-    //console.log(configService.get('DATABASE_URL'))
   }
 
   /* istanbul ignore next */
   async onModuleInit() {
     try {
-      const admin = await this.users.findUnique({
+      const admin = await this.user.findUnique({
         where: {
           eMail: this.configService.get('ADMIN_MAIL'),
         },
@@ -28,7 +27,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
       if (admin) return;
 
       const hash = await argon.hash(this.configService.get('ADMIN_PWD'));
-      await this.users.create({
+      await this.user.create({
         data: {
           eMail: this.configService.get('ADMIN_MAIL'),
           pwd: hash,
@@ -48,6 +47,6 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
 
   /* istanbul ignore next */
   cleanDb() {
-    return this.$transaction([this.users.deleteMany()]);
+    return this.$transaction([this.user.deleteMany()]);
   }
 }

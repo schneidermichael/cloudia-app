@@ -11,7 +11,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Users {
+model User {
   id Int @id @default(autoincrement())
 
   createdAt DateTime @default(now())
@@ -26,6 +26,7 @@ model Users {
 
   isActive  Boolean @default(false)
   confirmToken String? @unique
+  history History[]
 }
 
 model AwsSimple {
@@ -37,4 +38,65 @@ model AwsSimple {
   Cost          Float
   MonthlyPrice  Float
   SpotPrice     String
+}
+
+model AwsElasticComputingCloud {
+    id                  Int    @id @default(autoincrement())
+    awsRegion           AwsRegion @relation(fields: [region], references: [region])
+    region              String
+    machine_image       String @db.VarChar(200)
+    instance_type       String @db.VarChar(200)
+    core                Int
+    ram                 Int
+    price_per_hour      Float
+}
+
+model AwsRegion {
+    region                   String @id
+    awsElasticComputingCloud AwsElasticComputingCloud[]
+}
+
+model AzureVirtualMachine  {
+    id                  Int    @id @default(autoincrement())
+    azureRegion         AzureRegion @relation(fields: [region], references: [region])
+    region              String
+    operating_system    String @db.VarChar(200)
+    instance_serie      String @db.VarChar(200)
+    core                Int
+    ram                 Int
+    storage             Int
+    price_per_hour      Float
+}
+
+model AzureRegion {
+    region                String @id
+    azureVirtualMachine   AzureVirtualMachine[]
+}
+
+model GcpComputeEngine  {
+    id                  Int    @id @default(autoincrement())
+    gcpRegion           GcpRegion @relation(fields: [region], references: [region])
+    region              String
+    image               String @db.VarChar(200)
+    machine_type        String @db.VarChar(200)
+    core                Int
+    ram                 Int
+    price_per_hour      Float
+}
+
+model GcpRegion {
+    region               String @id
+    gcpComputeEngine     GcpComputeEngine[]
+}
+
+model History {
+    id                  Int    @id @default(autoincrement())
+    user                User @relation(fields: [userId], references: [id])
+    userId              Int
+    createdAt           DateTime @default(now())
+    type                String @db.VarChar(200)
+    providerA           String @db.VarChar(200)
+    providerB           String @db.VarChar(200)
+    priceA              Float
+    priceB              Float
 }

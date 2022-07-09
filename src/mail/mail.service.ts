@@ -1,12 +1,12 @@
 import { MailerService } from '@nestjs-modules/mailer';
 import { Injectable } from '@nestjs/common';
-import { Users } from '@prisma/client';
+import { User } from '@prisma/client';
 
 @Injectable()
 export class MailService {
   constructor(private mailerService: MailerService) {}
 
-  async sendUserConfirmation(user: Users, token: string) {
+  async sendUserConfirmation(user: User, token: string) {
     const url = `http://localhost:4200/success?token=${token}`;
 
     await this.mailerService.sendMail({
@@ -21,7 +21,7 @@ export class MailService {
     });
   }
 
-  async sendUserResetPwd(user: Users, pwd: string) {
+  async sendUserResetPwd(user: User, pwd: string) {
     const url = `localhost:3000/auth/confirmpwd?email=${user.eMail}&pwd=${pwd}&token=${user.confirmToken}`;
 
     await this.mailerService.sendMail({
