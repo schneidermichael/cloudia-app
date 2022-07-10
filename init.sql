@@ -206,12 +206,13 @@ INSERT INTO public."AzurePostgreSql" (region, instance_serie, core, ram, price_p
 INSERT INTO public."AzurePostgreSql" (region, instance_serie, core, ram, price_per_hour, price_per_gib) VALUES('East US', 'Compute Gen 5', 32, 160, 2.804, 0.115);
 INSERT INTO public."AzurePostgreSql" (region, instance_serie, core, ram, price_per_hour, price_per_gib) VALUES('East US', 'Compute Gen 5', 64, 320, 5.607, 0.115);
 
-INSERT INTO public."AzurePostgreSql" (region, instance_serie, core, ram, price_per_hour, price_per_gib) VALUES('Central US', 'Compute Gen 5', 2, 10, 0.205, 0.138);
-INSERT INTO public."AzurePostgreSql" (region, instance_serie, core, ram, price_per_hour, price_per_gib) VALUES('Central US', 'Compute Gen 5', 4, 20, 0.410, 0.138);
-INSERT INTO public."AzurePostgreSql" (region, instance_serie, core, ram, price_per_hour, price_per_gib) VALUES('Central US', 'Compute Gen 5', 8, 40, 0.820, 0.138);
-INSERT INTO public."AzurePostgreSql" (region, instance_serie, core, ram, price_per_hour, price_per_gib) VALUES('Central US', 'Compute Gen 5', 16, 80, 1.639, 0.138);
-INSERT INTO public."AzurePostgreSql" (region, instance_serie, core, ram, price_per_hour, price_per_gib) VALUES('Central US', 'Compute Gen 5', 32, 160, 3.277, 0.138);
-INSERT INTO public."AzurePostgreSql" (region, instance_serie, core, ram, price_per_hour, price_per_gib) VALUES('Central US', 'Compute Gen 5', 64, 320, 6.554, 0.138);
+INSERT INTO public."AzurePostgreSql" (region, instance_serie, core, ram, price_per_hour, price_per_gib) VALUES('West US', 'Compute Gen 5', 2, 10, 0.205, 0.138);
+INSERT INTO public."AzurePostgreSql" (region, instance_serie, core, ram, price_per_hour, price_per_gib) VALUES('West US', 'Compute Gen 5', 4, 20, 0.410, 0.138);
+INSERT INTO public."AzurePostgreSql" (region, instance_serie, core, ram, price_per_hour, price_per_gib) VALUES('West US', 'Compute Gen 5', 8, 40, 0.820, 0.138);
+INSERT INTO public."AzurePostgreSql" (region, instance_serie, core, ram, price_per_hour, price_per_gib) VALUES('West US', 'Compute Gen 5', 16, 80, 1.639, 0.138);
+INSERT INTO public."AzurePostgreSql" (region, instance_serie, core, ram, price_per_hour, price_per_gib) VALUES('West US', 'Compute Gen 5', 32, 160, 3.277, 0.138);
+INSERT INTO public."AzurePostgreSql" (region, instance_serie, core, ram, price_per_hour, price_per_gib) VALUES('West US', 'Compute Gen 5', 64, 320, 6.554, 0.138);
+
 
 
 
