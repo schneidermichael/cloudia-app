@@ -6,8 +6,17 @@ import { PrismaService } from '../prisma/prisma.service';
 export class GcpService {
   constructor(private prisma: PrismaService) {}
 
-  findAllRegion() {
+  findAllRegionComputeEngine() {
     return this.prisma.gcpComputeEngine.findMany({
+      select: {
+        region: true,
+      },
+      distinct: ['region'],
+    });
+  }
+
+  findAllRegionCloudSql() {
+    return this.prisma.gcpCloudSql.findMany({
       select: {
         region: true,
       },

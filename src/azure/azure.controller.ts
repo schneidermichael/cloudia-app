@@ -6,9 +6,14 @@ import { VirtualMachineCalculateRequest } from './dto/virtual-machine-calculate.
 export class AzureController {
   constructor(private readonly service: AzureService) {}
 
-  @Get('region')
-  findAllRegion() {
-    return this.service.findAllRegion();
+  @Get('virtual-machine/region')
+  findAllRegionVirtualMachine() {
+    return this.service.findAllRegionVirtualMachine();
+  }
+
+  @Get('postgresql/region')
+  findAllRegionPostgreSql() {
+    return this.service.findAllRegionPostgreSql();
   }
 
   @Get('operating-system')

@@ -6,8 +6,17 @@ import { ElasticCloudComputingCalculateRequest } from './dto/elastic-cloud-compu
 export class AwsService {
   constructor(private prisma: PrismaService) {}
 
-  async findAllRegion() {
+  findAllRegionElasticCloudComputing() {
     return this.prisma.awsElasticComputingCloud.findMany({
+      select: {
+        region: true,
+      },
+      distinct: ['region'],
+    });
+  }
+
+  findAllRegionRelationalDatabaseService() {
+    return this.prisma.awsRelationalDatabase.findMany({
       select: {
         region: true,
       },

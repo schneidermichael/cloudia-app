@@ -6,9 +6,14 @@ import { ComputeEngineCalculateRequest } from './dto/compute-engine-calculate.dt
 export class GcpController {
   constructor(private readonly service: GcpService) {}
 
-  @Get('region')
-  findAllRegion() {
-    return this.service.findAllRegion();
+  @Get('compute-engine/region')
+  findAllRegionComputeEngine() {
+    return this.service.findAllRegionComputeEngine();
+  }
+
+  @Get('cloud-sql/region')
+  findAllRegionCloudSql() {
+    return this.service.findAllRegionCloudSql();
   }
 
   @Get('image')

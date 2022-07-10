@@ -6,8 +6,17 @@ import { PrismaService } from '../prisma/prisma.service';
 export class AzureService {
   constructor(private prisma: PrismaService) {}
 
-  findAllRegion() {
+  findAllRegionVirtualMachine() {
     return this.prisma.azureVirtualMachine.findMany({
+      select: {
+        region: true,
+      },
+      distinct: ['region'],
+    });
+  }
+
+  findAllRegionPostgreSql() {
+    return this.prisma.azurePostgreSql.findMany({
       select: {
         region: true,
       },

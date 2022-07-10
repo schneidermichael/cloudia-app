@@ -6,9 +6,14 @@ import { ElasticCloudComputingCalculateRequest } from './dto/elastic-cloud-compu
 export class AwsController {
   constructor(private readonly service: AwsService) {}
 
-  @Get('region')
-  findAllRegion() {
-    return this.service.findAllRegion();
+  @Get('elastic-cloud-computing/region')
+  findAllRegionElasticCloudComputing() {
+    return this.service.findAllRegionElasticCloudComputing();
+  }
+
+  @Get('relational-database-service/region')
+  findAllRegionRelationalDatabaseService() {
+    return this.service.findAllRegionRelationalDatabaseService();
   }
 
   @Get('machine-image')
