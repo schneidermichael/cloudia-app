@@ -12,91 +12,116 @@ datasource db {
 }
 
 model User {
-  id Int @id @default(autoincrement())
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  
-  title     String?
-  firstName String?
-  lastName  String?
-
-  eMail     String @unique
-  pwd       String
-
-  isActive  Boolean @default(false)
-  confirmToken String? @unique
-  history History[]
+  id                                Int @id @default(autoincrement())
+  created_at                        DateTime @default(now())
+  updated_at                        DateTime @updatedAt
+  first_name                        String
+  last_name                         String
+  email                             String @unique
+  password                          String
+  is_active                         Boolean @default(false)
+  confirm_token                     String? @unique
+  history                           History[]
+  country                           Country @relation(fields: [country_name], references: [name])
+  country_name                      String
 }
 
-model AwsSimple {
-  InstanceType  String @unique
-  Memory        String
-  VCPUS         Int
-  Storage       String
-  Network       String
-  Cost          Float
-  MonthlyPrice  Float
-  SpotPrice     String
+model Country {
+    name                            String @id
+    user                            User[]
 }
 
 model AwsElasticComputingCloud {
-    id                  Int    @id @default(autoincrement())
-    awsRegion           AwsRegion @relation(fields: [region], references: [region])
-    region              String
-    machine_image       String @db.VarChar(200)
-    instance_type       String @db.VarChar(200)
-    core                Int
-    ram                 Int
-    price_per_hour      Float
+    id                              Int    @id @default(autoincrement())
+    aws_region                      AwsRegion @relation(fields: [region], references: [region])
+    region                          String
+    machine_image                   String @db.VarChar(200)
+    instance_type                   String @db.VarChar(200)
+    core                            Int
+    ram                             Int
+    price_per_hour                  Float
 }
 
 model AwsRegion {
-    region                   String @id
-    awsElasticComputingCloud AwsElasticComputingCloud[]
+    region                          String @id
+    aws_elastic_computing_cloud     AwsElasticComputingCloud[]
+    aws_relational_database         AwsRelationalDatabase[]
 }
 
 model AzureVirtualMachine  {
-    id                  Int    @id @default(autoincrement())
-    azureRegion         AzureRegion @relation(fields: [region], references: [region])
-    region              String
-    operating_system    String @db.VarChar(200)
-    instance_serie      String @db.VarChar(200)
-    core                Int
-    ram                 Int
-    storage             Int
-    price_per_hour      Float
+    id                              Int    @id @default(autoincrement())
+    azure_region                    AzureRegion @relation(fields: [region], references: [region])
+    region                          String
+    operating_system                String @db.VarChar(200)
+    instance_serie                  String @db.VarChar(200)
+    core                            Int
+    ram                             Int
+    storage                         Int
+    price_per_hour                  Float
 }
 
 model AzureRegion {
-    region                String @id
-    azureVirtualMachine   AzureVirtualMachine[]
+    region                          String @id
+    azure_virtual_machine           AzureVirtualMachine[]
+    azure_postgre_sql               AzurePostgreSql[]
 }
 
 model GcpComputeEngine  {
-    id                  Int    @id @default(autoincrement())
-    gcpRegion           GcpRegion @relation(fields: [region], references: [region])
-    region              String
-    image               String @db.VarChar(200)
-    machine_type        String @db.VarChar(200)
-    core                Int
-    ram                 Int
-    price_per_hour      Float
+    id                              Int    @id @default(autoincrement())
+    gcp_region                      GcpRegion @relation(fields: [region], references: [region])
+    region                          String
+    image                           String @db.VarChar(200)
+    machine_type                    String @db.VarChar(200)
+    core                            Int
+    ram                             Int
+    price_per_hour                  Float
 }
 
 model GcpRegion {
-    region               String @id
-    gcpComputeEngine     GcpComputeEngine[]
+    region                          String @id
+    gcp_compute_engine              GcpComputeEngine[]
+    gcp_cloud_sql                   GcpCloudSql[]
 }
 
 model History {
-    id                  Int    @id @default(autoincrement())
-    user                User @relation(fields: [userId], references: [id])
-    userId              Int
-    createdAt           DateTime @default(now())
-    type                String @db.VarChar(200)
-    providerA           String @db.VarChar(200)
-    providerB           String @db.VarChar(200)
-    priceA              Float
-    priceB              Float
+    id                              Int    @id @default(autoincrement())
+    user                            User @relation(fields: [user_id], references: [id])
+    user_id                         Int
+    created_at                      DateTime @default(now())
+    type                            String @db.VarChar(200)
+    provider_a                      String @db.VarChar(200)
+    provider_b                      String @db.VarChar(200)
+    price_a                         Float
+    price_b                         Float
+}
+
+model AwsRelationalDatabase {
+    id                              Int    @id @default(autoincrement())
+    aws_region                      AwsRegion @relation(fields: [region], references: [region])
+    region                          String
+    instance_type                   String @db.VarChar(200)
+    core                            Int
+    ram                             Int
+    price_per_hour                  Float
+    price_per_gib                   Float
+}
+
+model AzurePostgreSql {
+    id                              Int    @id @default(autoincrement())
+    azure_region                    AzureRegion @relation(fields: [region], references: [region])
+    region                          String
+    instance_serie                  String @db.VarChar(200)
+    core                            Int
+    ram                             Int
+    price_per_hour                  Float
+    price_per_gib                   Float
+}
+
+model GcpCloudSql {
+    id                              Int    @id @default(autoincrement())
+    gcp_region                      GcpRegion @relation(fields: [region], references: [region])
+    region                          String
+    price_per_cpu_hour              Float
+    price_per_ram_hour              Float
+    price_per_gib                   Float
 }

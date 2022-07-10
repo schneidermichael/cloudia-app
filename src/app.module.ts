@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { AuthModule } from './auth/auth.module';
+import { AuthenticationModule } from './authentication/authentication.module';
 import { UserModule } from './user/user.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
@@ -12,7 +12,7 @@ import { CountryModule } from './country/country.module';
 
 @Module({
   imports: [
-    AuthModule,
+    AuthenticationModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),

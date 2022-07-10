@@ -24,7 +24,7 @@ export class AzureService {
     });
   }
 
-  findAllInstanceSerie() {
+  virtualMachineInstanceSerie() {
     return this.prisma.azureVirtualMachine.findMany({
       select: {
         id: true,
@@ -42,6 +42,28 @@ export class AzureService {
         'ram',
         'storage',
         'price_per_hour',
+      ],
+    });
+  }
+
+  postgresqlInstanceSerie() {
+    return this.prisma.azurePostgreSql.findMany({
+      select: {
+        id: true,
+        region: true,
+        instance_serie: true,
+        core: true,
+        ram: true,
+        price_per_hour: true,
+        price_per_gib: true,
+      },
+      distinct: [
+        'region',
+        'instance_serie',
+        'core',
+        'ram',
+        'price_per_hour',
+        'price_per_gib',
       ],
     });
   }

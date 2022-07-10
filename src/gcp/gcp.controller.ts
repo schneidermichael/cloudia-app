@@ -17,8 +17,13 @@ export class GcpController {
   }
 
   @Get('compute-engine/machine-type')
-  findAllMachineType() {
-    return this.service.findAllMachineType();
+  computeEngineMachineType() {
+    return this.service.computeEngineMachineType();
+  }
+
+  @Get('cloud-sql/machine-type')
+  cloudSqlMachineType() {
+    return this.service.cloudSqlMachineType();
   }
 
   @Post('compute-engine/calculate')

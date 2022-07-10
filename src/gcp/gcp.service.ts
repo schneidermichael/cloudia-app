@@ -24,7 +24,7 @@ export class GcpService {
     });
   }
 
-  findAllMachineType() {
+  computeEngineMachineType() {
     return this.prisma.gcpComputeEngine.findMany({
       select: {
         id: true,
@@ -35,6 +35,24 @@ export class GcpService {
         price_per_hour: true,
       },
       distinct: ['region', 'machine_type', 'core', 'ram', 'price_per_hour'],
+    });
+  }
+
+  cloudSqlMachineType() {
+    return this.prisma.gcpCloudSql.findMany({
+      select: {
+        id: true,
+        region: true,
+        price_per_cpu_hour: true,
+        price_per_ram_hour: true,
+        price_per_gib: true,
+      },
+      distinct: [
+        'region',
+        'price_per_cpu_hour',
+        'price_per_ram_hour',
+        'price_per_gib',
+      ],
     });
   }
 

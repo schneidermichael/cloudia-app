@@ -17,8 +17,13 @@ export class AwsController {
   }
 
   @Get('elastic-cloud-computing/instance-type')
-  findAllInstanceType() {
-    return this.service.findAllInstanceType();
+  elasticCloudComputingInstanceType() {
+    return this.service.elasticCloudComputingInstanceType();
+  }
+
+  @Get('relational-database-service/instance-type')
+  relationlDatabaseServiceInstanceType() {
+    return this.service.relationlDatabaseServiceInstanceType();
   }
 
   @Post('elastic-cloud-computing/calculate')

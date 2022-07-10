@@ -24,7 +24,7 @@ export class AwsService {
     });
   }
 
-  findAllInstanceType() {
+  elasticCloudComputingInstanceType() {
     return this.prisma.awsElasticComputingCloud.findMany({
       select: {
         id: true,
@@ -35,6 +35,28 @@ export class AwsService {
         price_per_hour: true,
       },
       distinct: ['region', 'instance_type', 'core', 'ram', 'price_per_hour'],
+    });
+  }
+
+  relationlDatabaseServiceInstanceType() {
+    return this.prisma.awsRelationalDatabase.findMany({
+      select: {
+        id: true,
+        region: true,
+        instance_type: true,
+        core: true,
+        ram: true,
+        price_per_hour: true,
+        price_per_gib: true,
+      },
+      distinct: [
+        'region',
+        'instance_type',
+        'core',
+        'ram',
+        'price_per_hour',
+        'price_per_gib',
+      ],
     });
   }
 

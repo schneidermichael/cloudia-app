@@ -3,7 +3,7 @@ import { Test } from '@nestjs/testing';
 import { PrismaService } from '../src/prisma/prisma.service';
 import { AppModule } from './../src/app.module';
 import * as pactum from 'pactum';
-import { AuthDto } from '../src/auth/dto';
+import { AuthenticationDto } from '../src/authentication/dto/authentication.dto';
 
 describe('App e2e', () => {
   let app: INestApplication;
@@ -25,7 +25,7 @@ describe('App e2e', () => {
 
     prisma = app.get(PrismaService);
     await prisma.cleanDb;
-    pactum.request.setBaseUrl('http://localhost:3001');
+    pactum.request.setBaseUrl('http://localhost:3000');
   });
 
   afterAll(() => {
@@ -33,117 +33,113 @@ describe('App e2e', () => {
   });
 
   describe('Auth', () => {
-    const dto: AuthDto = {
-      eMail: 'test@test.com',
-      pwd: '123456',
+    const dto: AuthenticationDto = {
+      email: 'test@test.com',
+      password: '123456',
     };
     describe('Register', () => {
       it('Test Register Success', () => {
         return pactum
           .spec()
-          .post('/auth/register')
+          .post('/authentication/register')
           .withBody(dto)
           .expectStatus(201);
       });
-      it('Test Register with no eMail provided', () => {
+      it('Test Register with no email provided', () => {
         return pactum
           .spec()
-          .post('/auth/register')
-          .withBody({ pwd: dto.pwd })
+          .post('/authentication/register')
+          .withBody({ password: dto.password })
           .expectStatus(400);
       });
-      it('Test Register with no correct eMail provided', () => {
+      it('Test Register with no correct email provided', () => {
         return pactum
           .spec()
-          .post('/auth/register')
-          .withBody({ eMail: 'wrong.mail', pwd: '123456' })
+          .post('/authentication/register')
+          .withBody({ email: 'wrong.mail', password: '123456' })
           .expectStatus(400);
       });
       it('Test Register with no pwd provided', () => {
         return pactum
           .spec()
-          .post('/auth/register')
-          .withBody({ eMail: dto.eMail })
+          .post('/authentication/register')
+          .withBody({ email: dto.email })
           .expectStatus(400);
       });
       it('Test Register with no pwd and eMail provided', () => {
         return pactum
           .spec()
-          .post('/auth/register')
+          .post('/authentication/register')
           .withBody({})
           .expectStatus(400);
       });
       it('Test Register with credentials taken', () => {
         return pactum
           .spec()
-          .post('/auth/register')
+          .post('/authentication/register')
           .withBody(dto)
           .expectStatus(403);
       });
     });
-    describe('Signin', () => {
-      it('Test Signin Success', () => {
+    describe('Login', () => {
+      it('Test Login Success', () => {
         return pactum
           .spec()
-          .post('/auth/signin')
+          .post('/authentication/login')
           .withBody(dto)
           .expectStatus(200)
           .stores('access_token', 'access_token');
       });
-      it('Test Signin with no eMail provided', () => {
+      it('Test Login with no email provided', () => {
         return pactum
           .spec()
-          .post('/auth/signin')
-          .withBody({ pwd: dto.pwd })
+          .post('/authentication/login')
+          .withBody({ password: dto.password })
           .expectStatus(400);
       });
-      it('Test Signin with no correct eMail provided', () => {
+      it('Test Login with no correct email provided', () => {
         return pactum
           .spec()
-          .post('/auth/signin')
-          .withBody({ eMail: 'wrong.mail', pwd: '123456' })
+          .post('/authentication/login')
+          .withBody({ email: 'wrong.mail', password: '123456' })
           .expectStatus(400);
       });
-      it('Test Signin with no pwd provided', () => {
+      it('Test Login with no password provided', () => {
         return pactum
           .spec()
-          .post('/auth/signin')
-          .withBody({ eMail: dto.eMail })
+          .post('/authentication/login')
+          .withBody({ email: dto.email })
           .expectStatus(400);
       });
-      it('Test Signin with no pwd and eMail provided', () => {
+      it('Test Login with no pwd and email provided', () => {
         return pactum
           .spec()
-          .post('/auth/signin')
+          .post('/authentication/login')
           .withBody({})
           .expectStatus(400);
       });
     });
   });
 
-  describe('Users', () => {
-    describe('GetProfil', () => {
-      it('Get Users Profil Success (correct token)', () => {
+  describe('User', () => {
+    describe('GetProfile', () => {
+      it('Get User Profile Success (correct token)', () => {
         return pactum
           .spec()
-          .get('/users/profil')
+          .get('/user/profile')
           .withHeaders({ Authorization: 'Bearer $S{access_token}' })
           .expectStatus(200);
       });
-      it('Get Users Profil Unauthorized (wrong token)', () => {
+      it('Get User Profile Unauthorized (wrong token)', () => {
         return pactum
           .spec()
-          .get('/users/profil')
+          .get('/user/profile')
           .withHeaders({ Authorization: 'Bearer wrong_token' })
           .expectStatus(401);
       });
-      it('Get Users Profil Unauthorized (no token)', () => {
-        return pactum.spec().get('/users/profil').expectStatus(401);
+      it('Get User Profile Unauthorized (no token)', () => {
+        return pactum.spec().get('/user/profile').expectStatus(401);
       });
     });
-
-    describe('EditProfil', () => {});
-
-    describe('DeleteProfil', () => {});
   });
 });

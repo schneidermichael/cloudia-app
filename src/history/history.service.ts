@@ -9,12 +9,12 @@ export class HistoryService {
   create(createHistoryDto: CreateHistoryDto) {
     return this.prisma.history.create({
       data: {
-        userId: createHistoryDto.userId,
+        user_id: createHistoryDto.userId,
         type: createHistoryDto.type,
-        providerA: createHistoryDto.providerA,
-        providerB: createHistoryDto.providerB,
-        priceA: createHistoryDto.priceA,
-        priceB: createHistoryDto.priceB,
+        provider_a: createHistoryDto.providerA,
+        provider_b: createHistoryDto.providerB,
+        price_a: createHistoryDto.priceA,
+        price_b: createHistoryDto.priceB,
       },
     });
   }
@@ -22,7 +22,7 @@ export class HistoryService {
   findAllByUserId(id: number) {
     return this.prisma.history.findMany({
       where: {
-        userId: id,
+        user_id: id,
       },
     });
   }

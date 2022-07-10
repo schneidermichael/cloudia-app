@@ -21,7 +21,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
     try {
       const admin = await this.user.findUnique({
         where: {
-          eMail: this.configService.get('ADMIN_MAIL'),
+          email: this.configService.get('ADMIN_MAIL'),
         },
       });
       if (admin) return;
@@ -29,9 +29,12 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
       const hash = await argon.hash(this.configService.get('ADMIN_PWD'));
       await this.user.create({
         data: {
-          eMail: this.configService.get('ADMIN_MAIL'),
-          pwd: hash,
-          isActive: true,
+          email: this.configService.get('ADMIN_MAIL'),
+          first_name: 'Doe',
+          last_name: 'Joe',
+          country_name: 'Austria',
+          password: hash,
+          is_active: true,
         },
       });
       console.log('ADMIN ADDED!');

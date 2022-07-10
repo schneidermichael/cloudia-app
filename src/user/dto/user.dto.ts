@@ -3,21 +3,21 @@ import { IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 export class UserDto {
   @IsOptional()
   @IsString()
-  title: string;
+  country_name: string;
 
   @IsOptional()
   @IsString()
-  firstName: string;
+  first_name: string;
 
   @IsOptional()
   @IsString()
-  lastName: string;
+  last_name: string;
 
   @IsEmail()
   @IsNotEmpty()
-  eMail: string;
+  email: string;
 
   @IsOptional()
   @IsString()
-  pwd: string;
+  password: string;
 }

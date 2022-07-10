@@ -17,8 +17,13 @@ export class AzureController {
   }
 
   @Get('virtual-machine/instance-serie')
-  findAllInstanceSerie() {
-    return this.service.findAllInstanceSerie();
+  virtualMachineInstanceSerie() {
+    return this.service.virtualMachineInstanceSerie();
+  }
+
+  @Get('postgresql/instance-serie')
+  postgresqlInstanceSerie() {
+    return this.service.postgresqlInstanceSerie();
   }
 
   @Post('virtual-machine/calculate')

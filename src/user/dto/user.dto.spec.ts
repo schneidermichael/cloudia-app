@@ -5,28 +5,24 @@ describe('AuthDto', () => {
 
   beforeEach(() => {
     userDto = new UserDto();
-    userDto.eMail = 'Email';
-    userDto.pwd = 'Password';
-    userDto.firstName = 'John';
-    userDto.lastName = 'Doe';
-    userDto.title = 'BSc';
+    userDto.email = 'Email';
+    userDto.password = 'Password';
+    userDto.first_name = 'John';
+    userDto.last_name = 'Doe';
   });
 
   describe('constructor', () => {
     it('should return eMail', () => {
-      expect(userDto.eMail).toBe('Email');
+      expect(userDto.email).toBe('Email');
     });
     it('should return pwd', () => {
-      expect(userDto.pwd).toBe('Password');
+      expect(userDto.password).toBe('Password');
     });
     it('should return firstName', () => {
-      expect(userDto.firstName).toBe('John');
+      expect(userDto.first_name).toBe('John');
     });
     it('should return lastName', () => {
-      expect(userDto.lastName).toBe('Doe');
-    });
-    it('should return title', () => {
-      expect(userDto.title).toBe('BSc');
+      expect(userDto.last_name).toBe('Doe');
     });
   });
 });

@@ -10,7 +10,7 @@ export class MailService {
     const url = `http://localhost:4200/success?token=${token}`;
 
     await this.mailerService.sendMail({
-      to: user.eMail,
+      to: user.email,
       //from: '"Support Team" <support@example.com>', // override default from
       subject: 'Welcome to Cloudia App! Confirm your Email',
       template: 'confirmation',
@@ -21,17 +21,17 @@ export class MailService {
     });
   }
 
-  async sendUserResetPwd(user: User, pwd: string) {
-    const url = `localhost:3000/auth/confirmpwd?email=${user.eMail}&pwd=${pwd}&token=${user.confirmToken}`;
+  async sendUserResetPwd(user: User, password: string) {
+    const url = `localhost:3000/auth/confirmpwd?email=${user.email}&pwd=${password}&token=${user.confirm_token}`;
 
     await this.mailerService.sendMail({
-      to: user.eMail,
+      to: user.email,
       //from: '"Support Team" <support@example.com>', // override default from
       subject: 'Reset your Cloudia App Password! Confirm your new Password',
       template: 'resetpwd',
       context: {
         //name: user.firstName + " " + user.lastName,
-        pwd,
+        password,
         url,
       },
     });

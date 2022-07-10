@@ -152,9 +152,66 @@ INSERT INTO public."AwsElasticComputingCloud" (region, machine_image, instance_t
 INSERT INTO public."AwsElasticComputingCloud" (region, machine_image, instance_type, core, ram, price_per_hour) VALUES('us-west-1', 'Ubuntu', 't2.2xlarge', 8, 32, 0.4416);
 
 
+INSERT INTO public."Country" ("name") VALUES('Gambia');
+INSERT INTO public."Country" ("name") VALUES('Kosovo');
+INSERT INTO public."Country" ("name") VALUES('Russian Federation');
+INSERT INTO public."Country" ("name") VALUES('Senegal');
+INSERT INTO public."Country" ("name") VALUES('Liberia');
+INSERT INTO public."Country" ("name") VALUES('Spain');
+INSERT INTO public."Country" ("name") VALUES('Qatar');
+INSERT INTO public."Country" ("name") VALUES('Slovakia');
+INSERT INTO public."Country" ("name") VALUES('Ukraine');
+INSERT INTO public."Country" ("name") VALUES('Austria');
+INSERT INTO public."Country" ("name") VALUES('Germany');
+INSERT INTO public."Country" ("name") VALUES('United Kingdom');
+INSERT INTO public."Country" ("name") VALUES('United States');
 
+INSERT INTO public."AwsRelationalDatabase" (region, core, instance_type, price_per_gib, price_per_hour, ram) VALUES('us-west-1', 1, 'db.t2.micro', 0.138, 0.024, 1);
+INSERT INTO public."AwsRelationalDatabase" (region, core, instance_type, price_per_gib, price_per_hour, ram) VALUES('us-west-1', 1, 'db.t2.small', 0.138, 0.048, 2);
+INSERT INTO public."AwsRelationalDatabase" (region, core, instance_type, price_per_gib, price_per_hour, ram) VALUES('us-west-1', 2, 'db.t2.medium', 0.138, 0.095, 4);
+INSERT INTO public."AwsRelationalDatabase" (region, core, instance_type, price_per_gib, price_per_hour, ram) VALUES('us-west-1', 2, 'db.t2.large', 0.138, 0.19, 8);
+INSERT INTO public."AwsRelationalDatabase" (region, core, instance_type, price_per_gib, price_per_hour, ram) VALUES('us-west-1', 4, 'db.t2.xlarge', 0.138, 0.38, 16);
+INSERT INTO public."AwsRelationalDatabase" (region, core, instance_type, price_per_gib, price_per_hour, ram) VALUES('us-west-1', 8, 'db.t2.2xlarge', 0.138, 0.76, 32);
 
+INSERT INTO public."AwsRelationalDatabase" (region, core, instance_type, price_per_gib, price_per_hour, ram) VALUES('us-east-1', 1, 'db.t2.micro', 0.115, 0.018, 1);
+INSERT INTO public."AwsRelationalDatabase" (region, core, instance_type, price_per_gib, price_per_hour, ram) VALUES('us-east-1', 1, 'db.t2.small', 0.115, 0.036, 2);
+INSERT INTO public."AwsRelationalDatabase" (region, core, instance_type, price_per_gib, price_per_hour, ram) VALUES('us-east-1', 2, 'db.t2.medium', 0.115, 0.073, 4);
+INSERT INTO public."AwsRelationalDatabase" (region, core, instance_type, price_per_gib, price_per_hour, ram) VALUES('us-east-1', 2, 'db.t2.large', 0.115, 0.145, 8);
+INSERT INTO public."AwsRelationalDatabase" (region, core, instance_type, price_per_gib, price_per_hour, ram) VALUES('us-east-1', 4, 'db.t2.xlarge', 0.115, 0.29, 16);
+INSERT INTO public."AwsRelationalDatabase" (region, core, instance_type, price_per_gib, price_per_hour, ram) VALUES('us-east-1', 8, 'db.t2.2xlarge', 0.115, 0.58, 32);
 
+INSERT INTO public."AwsRelationalDatabase" (region, core, instance_type, price_per_gib, price_per_hour, ram) VALUES('eu-central-1', 1, 'db.t2.micro', 0.137, 0.025, 1);
+INSERT INTO public."AwsRelationalDatabase" (region, core, instance_type, price_per_gib, price_per_hour, ram) VALUES('eu-central-1', 1, 'db.t2.small', 0.137, 0.045, 2);
+INSERT INTO public."AwsRelationalDatabase" (region, core, instance_type, price_per_gib, price_per_hour, ram) VALUES('eu-central-1', 2, 'db.t2.medium', 0.137, 0.085, 4);
+INSERT INTO public."AwsRelationalDatabase" (region, core, instance_type, price_per_gib, price_per_hour, ram) VALUES('eu-central-1', 2, 'db.t2.large', 0.137, 0.168, 8);
+INSERT INTO public."AwsRelationalDatabase" (region, core, instance_type, price_per_gib, price_per_hour, ram) VALUES('eu-central-1', 4, 'db.t2.xlarge', 0.137, 0.336, 16);
+INSERT INTO public."AwsRelationalDatabase" (region, core, instance_type, price_per_gib, price_per_hour, ram) VALUES('eu-central-1', 8, 'db.t2.2xlarge', 0.137, 0.672, 32);
+
+INSERT INTO public."GcpCloudSql" (region, price_per_gib, price_per_cpu_hour, price_per_ram_hour) VALUES('us-central1', 0.17, 0.04, 0.01);
+INSERT INTO public."GcpCloudSql" (region, price_per_gib, price_per_cpu_hour, price_per_ram_hour) VALUES('us-east1', 0.17, 0.04, 0.01);
+INSERT INTO public."GcpCloudSql" (region, price_per_gib, price_per_cpu_hour, price_per_ram_hour) VALUES('europe-north1', 0.19, 0.05, 0.01);
+INSERT INTO public."GcpCloudSql" (region, price_per_gib, price_per_cpu_hour, price_per_ram_hour) VALUES('southamerica-east1', 0.26, 0.06, 0.01);
+
+INSERT INTO public."AzurePostgreSql" (region, instance_serie, core, ram, price_per_hour, price_per_gib) VALUES('Central US', 'Compute Gen 5', 2, 10, 0.211, 0.138);
+INSERT INTO public."AzurePostgreSql" (region, instance_serie, core, ram, price_per_hour, price_per_gib) VALUES('Central US', 'Compute Gen 5', 4, 20, 0.421, 0.138);
+INSERT INTO public."AzurePostgreSql" (region, instance_serie, core, ram, price_per_hour, price_per_gib) VALUES('Central US', 'Compute Gen 5', 8, 40, 0.841, 0.138);
+INSERT INTO public."AzurePostgreSql" (region, instance_serie, core, ram, price_per_hour, price_per_gib) VALUES('Central US', 'Compute Gen 5', 16, 80, 1.682, 0.138);
+INSERT INTO public."AzurePostgreSql" (region, instance_serie, core, ram, price_per_hour, price_per_gib) VALUES('Central US', 'Compute Gen 5', 32, 160, 3.364, 0.138);
+INSERT INTO public."AzurePostgreSql" (region, instance_serie, core, ram, price_per_hour, price_per_gib) VALUES('Central US', 'Compute Gen 5', 64, 320, 6.727, 0.138);
+
+INSERT INTO public."AzurePostgreSql" (region, instance_serie, core, ram, price_per_hour, price_per_gib) VALUES('East US', 'Compute Gen 5', 2, 10, 0.176, 0.115);
+INSERT INTO public."AzurePostgreSql" (region, instance_serie, core, ram, price_per_hour, price_per_gib) VALUES('East US', 'Compute Gen 5', 4, 20, 0.351, 0.115);
+INSERT INTO public."AzurePostgreSql" (region, instance_serie, core, ram, price_per_hour, price_per_gib) VALUES('East US', 'Compute Gen 5', 8, 40, 0.701, 0.115);
+INSERT INTO public."AzurePostgreSql" (region, instance_serie, core, ram, price_per_hour, price_per_gib) VALUES('East US', 'Compute Gen 5', 16, 80, 1.402, 0.115);
+INSERT INTO public."AzurePostgreSql" (region, instance_serie, core, ram, price_per_hour, price_per_gib) VALUES('East US', 'Compute Gen 5', 32, 160, 2.804, 0.115);
+INSERT INTO public."AzurePostgreSql" (region, instance_serie, core, ram, price_per_hour, price_per_gib) VALUES('East US', 'Compute Gen 5', 64, 320, 5.607, 0.115);
+
+INSERT INTO public."AzurePostgreSql" (region, instance_serie, core, ram, price_per_hour, price_per_gib) VALUES('Central US', 'Compute Gen 5', 2, 10, 0.205, 0.138);
+INSERT INTO public."AzurePostgreSql" (region, instance_serie, core, ram, price_per_hour, price_per_gib) VALUES('Central US', 'Compute Gen 5', 4, 20, 0.410, 0.138);
+INSERT INTO public."AzurePostgreSql" (region, instance_serie, core, ram, price_per_hour, price_per_gib) VALUES('Central US', 'Compute Gen 5', 8, 40, 0.820, 0.138);
+INSERT INTO public."AzurePostgreSql" (region, instance_serie, core, ram, price_per_hour, price_per_gib) VALUES('Central US', 'Compute Gen 5', 16, 80, 1.639, 0.138);
+INSERT INTO public."AzurePostgreSql" (region, instance_serie, core, ram, price_per_hour, price_per_gib) VALUES('Central US', 'Compute Gen 5', 32, 160, 3.277, 0.138);
+INSERT INTO public."AzurePostgreSql" (region, instance_serie, core, ram, price_per_hour, price_per_gib) VALUES('Central US', 'Compute Gen 5', 64, 320, 6.554, 0.138);
 
 
 

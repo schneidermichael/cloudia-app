@@ -10,41 +10,39 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { JwtGuard } from '../auth/guard';
-import { GetUsersProfil } from '../auth/decorator';
 import { User } from '@prisma/client';
-import { UserDto } from './dto';
+import { UserDto } from './dto/user.dto';
+import { JwtGuard } from '../authentication/guard/jwt.guard';
+import { GetUserProfile } from '../authentication/decorator/get-user-profile.decorator';
 
 @UseGuards(JwtGuard)
 @Controller('user')
 export class UserController {
   constructor(private usersService: UserService) {}
 
-  @Get('profil')
-  async getProfil(@GetUsersProfil() profil: User) {
-    return profil;
+  @Get('profile')
+  getProfile(@GetUserProfile() user: User) {
+    return user;
   }
 
-  @Put('profil/:id')
-  async editProfil(
-    @GetUsersProfil() profil: User,
+  @Put('profile/:id')
+  async editProfile(
+    @GetUserProfile() user: User,
     @Param('id', new ParseIntPipe()) id,
     @Body() dto: UserDto,
   ) {
-    console.log(profil);
-    console.log(dto);
-    if (profil.id != id)
+    if (user.id != id)
       throw new ForbiddenException('You are not allowed to edit this user');
-    return this.usersService.editProfil(id, dto);
+    return this.usersService.editProfile(id, dto);
   }
 
-  @Delete('profil/:id')
-  async deleteProfil(
-    @GetUsersProfil() profil: User,
+  @Delete('profile/:id')
+  async deleteProfile(
+    @GetUserProfile() user: User,
     @Param('id', new ParseIntPipe()) id,
   ) {
-    if (profil.id != id)
+    if (user.id != id)
       throw new ForbiddenException('You are not allowed to delete this user');
-    return this.usersService.deleteProfil(id);
+    return this.usersService.deleteProfile(id);
   }
 }

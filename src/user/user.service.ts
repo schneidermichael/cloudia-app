@@ -2,36 +2,34 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
 import * as argon from 'argon2';
 import { PrismaService } from '../prisma/prisma.service';
-import { UserDto } from './dto';
+import { UserDto } from './dto/user.dto';
 
 @Injectable()
 export class UserService {
   constructor(private prisma: PrismaService) {}
 
   /* istanbul ignore next */
-  async editProfil(id: number, dto: UserDto) {
+  async editProfile(id: number, dto: UserDto) {
     try {
       const user = await this.prisma.user.update({
         select: {
           id: true,
-          title: Boolean(dto.title),
-          firstName: Boolean(dto.firstName),
-          lastName: Boolean(dto.lastName),
-          eMail: true,
-          pwd: Boolean(dto.pwd),
+          first_name: Boolean(dto.first_name),
+          last_name: Boolean(dto.last_name),
+          email: true,
+          password: Boolean(dto.password),
         },
         where: {
           id: id,
         },
         data: {
-          title: dto.title || undefined,
-          firstName: dto.firstName || undefined,
-          lastName: dto.lastName || undefined,
-          eMail: dto.eMail || undefined,
-          pwd: dto.pwd ? await argon.hash(dto.pwd) : undefined,
+          first_name: dto.first_name || undefined,
+          last_name: dto.last_name || undefined,
+          email: dto.email || undefined,
+          password: dto.password ? await argon.hash(dto.password) : undefined,
         },
       });
-      if (user) delete user.pwd;
+      if (user) delete user.password;
       return user;
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
@@ -43,14 +41,14 @@ export class UserService {
     }
   }
 
-  async deleteProfil(id: number) {
+  async deleteProfile(id: number) {
     try {
       const user = await this.prisma.user.delete({
         where: {
           id: id,
         },
       });
-      if (user) delete user.pwd;
+      if (user) delete user.password;
       return user;
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
