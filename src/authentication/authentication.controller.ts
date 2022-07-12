@@ -7,7 +7,6 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
-import { query } from 'express';
 import { AuthenticationService } from './authentication.service';
 import { ResetPasswordDto } from './dto/reset-password.dto';
 import { UserDto } from '../user/dto/user.dto';
@@ -48,7 +47,6 @@ export class AuthenticationController {
     @Query('password') password,
     @Query('token') token,
   ) {
-    const pairs = Object.entries(query);
     return this.service.confirmPassword(email, password, token);
   }
 }

@@ -129,9 +129,20 @@ export class AuthenticationService {
     if (!user.is_active) throw new ForbiddenException('User is not activated');
 
     const password = Math.floor(100000000 + Math.random() * 9000000).toString();
-    await this.mailService.sendUserResetPassword(user, password);
 
-    return { user: email, status: 'please check your email' };
+    await this.prisma.user.update({
+      select: {
+        password: true,
+      },
+      where: {
+        id: user.id,
+      },
+      data: {
+        password: await argon.hash(password),
+      },
+    });
+
+    return { password: password };
   }
 
   /* istanbul ignore next */
