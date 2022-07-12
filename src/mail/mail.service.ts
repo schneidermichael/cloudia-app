@@ -21,14 +21,14 @@ export class MailService {
     });
   }
 
-  async sendUserResetPwd(user: User, password: string) {
-    const url = `localhost:3000/auth/confirmpwd?email=${user.email}&pwd=${password}&token=${user.confirm_token}`;
+  async sendUserResetPassword(user: User, password: string) {
+    const url = `localhost:3000/authentication/confirm-password?email=${user.email}&password=${password}&token=${user.confirm_token}`;
 
     await this.mailerService.sendMail({
       to: user.email,
       //from: '"Support Team" <support@example.com>', // override default from
       subject: 'Reset your Cloudia App Password! Confirm your new Password',
-      template: 'resetpwd',
+      template: 'reset-password',
       context: {
         //name: user.firstName + " " + user.lastName,
         password,

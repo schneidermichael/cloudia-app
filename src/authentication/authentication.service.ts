@@ -103,10 +103,10 @@ export class AuthenticationService {
   }
 
   /* istanbul ignore next */
-  async loginToken(userId: number, eMail: string) {
+  async loginToken(userId: number, email: string) {
     const payload = {
       sub: userId,
-      eMail: eMail,
+      email: email,
     };
     const secret = this.config.get('JWT_SECRET');
 
@@ -128,8 +128,8 @@ export class AuthenticationService {
     if (!user) throw new ForbiddenException('Credentials incorrect');
     if (!user.is_active) throw new ForbiddenException('User is not activated');
 
-    const pwd = Math.floor(100000000 + Math.random() * 9000000).toString();
-    await this.mailService.sendUserResetPwd(user, pwd);
+    const password = Math.floor(100000000 + Math.random() * 9000000).toString();
+    await this.mailService.sendUserResetPassword(user, password);
 
     return { user: email, status: 'please check your email' };
   }
@@ -159,7 +159,7 @@ export class AuthenticationService {
         },
       });
       if (user) delete user.password;
-      return { user: user.email, status: 'pwd resetted' };
+      return { user: user.email, status: 'password reset' };
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code == 'P2008') {
