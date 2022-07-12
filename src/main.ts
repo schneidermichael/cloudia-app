@@ -12,10 +12,20 @@ async function bootstrap() {
     }),
   );
   const config = new DocumentBuilder()
-    .setTitle('Cloudia API')
-    .setDescription('The Cloudia API description')
+    .setTitle('Cloudia Public API - OpenAPI 3.0')
+    .setDescription(
+      'This is the Cloudia Public API based on the OpenAPI 3.0 specification.',
+    )
     .setVersion('1.0')
-    .addTag('Cloudia')
+    .setContact(
+      'Contact the developer',
+      '',
+      'karim.schierbauer@stud.fh-campuswien.ac.at;michael.schneider@stud.fh-campuswien.ac.at;david.schedler@stud.fh-campuswien.ac.at',
+    )
+    .setLicense(
+      'MIT license',
+      'https://github.com/schneidermichael/cloudia-ui/blob/main/LICENSE',
+    )
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

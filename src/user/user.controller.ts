@@ -14,7 +14,9 @@ import { User } from '@prisma/client';
 import { UserDto } from './dto/user.dto';
 import { JwtGuard } from '../authentication/guard/jwt.guard';
 import { GetUserProfile } from '../authentication/decorator/get-user-profile.decorator';
+import { ApiExcludeController } from '@nestjs/swagger';
 
+@ApiExcludeController()
 @UseGuards(JwtGuard)
 @Controller('user')
 export class UserController {

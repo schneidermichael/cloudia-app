@@ -12,7 +12,9 @@ import { AuthenticationService } from './authentication.service';
 import { ResetPasswordDto } from './dto/reset-password.dto';
 import { UserDto } from '../user/dto/user.dto';
 import { AuthenticationDto } from './dto/authentication.dto';
+import { ApiExcludeController } from '@nestjs/swagger';
 
+@ApiExcludeController()
 @Controller('authentication')
 export class AuthenticationController {
   constructor(private service: AuthenticationService) {}
