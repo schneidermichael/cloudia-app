@@ -15,7 +15,6 @@ export class MailService {
       subject: 'Welcome to Cloudia App! Confirm your Email',
       template: 'confirmation',
       context: {
-        //name: user.firstName + " " + user.lastName,
         url,
       },
     });

@@ -1,8 +1,14 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
 import * as argon from 'argon2';
 import { PrismaService } from '../prisma/prisma.service';
 import { UserDto } from './dto/user.dto';
+import { User } from '@prisma/client';
+import { ChangePasswordDto } from './dto/change-password.dto';
 
 @Injectable()
 export class UserService {
@@ -58,5 +64,27 @@ export class UserService {
       }
       throw error;
     }
+  }
+
+  async changePassword(user: User, dto: ChangePasswordDto) {
+    const oldUser = await this.prisma.user.findUnique({
+      where: {
+        id: user.id,
+      },
+    });
+    const match = await argon.verify(oldUser.password, dto.oldPassword);
+    if (!match) throw new ForbiddenException('Old Password is incorrect');
+
+    await this.prisma.user.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        password: dto.newPassword
+          ? await argon.hash(dto.newPassword)
+          : undefined,
+      },
+    });
+    return dto;
   }
 }

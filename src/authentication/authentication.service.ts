@@ -25,7 +25,6 @@ export class AuthenticationService {
   async register(dto: UserDto) {
     try {
       const token = Math.floor(100000000 + Math.random() * 9000000).toString();
-
       const hash = await argon.hash(dto.password);
       const user = await this.prisma.user.create({
         data: {

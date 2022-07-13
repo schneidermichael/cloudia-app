@@ -12,7 +12,7 @@ import { ResetPasswordDto } from './dto/reset-password.dto';
 import { UserDto } from '../user/dto/user.dto';
 import { AuthenticationDto } from './dto/authentication.dto';
 import { ApiExcludeController } from '@nestjs/swagger';
-import { ResendConformationDto } from "./dto/resend-conformation";
+import { ResendConformationDto } from './dto/resend-conformation';
 
 @ApiExcludeController()
 @Controller('authentication')

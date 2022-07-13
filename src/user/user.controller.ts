@@ -15,6 +15,7 @@ import { UserDto } from './dto/user.dto';
 import { JwtGuard } from '../authentication/guard/jwt.guard';
 import { GetUserProfile } from '../authentication/decorator/get-user-profile.decorator';
 import { ApiExcludeController } from '@nestjs/swagger';
+import { ChangePasswordDto } from './dto/change-password.dto';
 
 @ApiExcludeController()
 @UseGuards(JwtGuard)
@@ -46,5 +47,13 @@ export class UserController {
     if (user.id != id)
       throw new ForbiddenException('You are not allowed to delete this user');
     return this.usersService.deleteProfile(id);
+  }
+
+  @Put('change-password')
+  async changePassword(
+    @GetUserProfile() user: User,
+    @Body() dto: ChangePasswordDto,
+  ) {
+    return this.usersService.changePassword(user, dto);
   }
 }
