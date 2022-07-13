@@ -41,6 +41,12 @@ export class AuthenticationController {
   }
 
   @HttpCode(HttpStatus.OK)
+  @Post('resend-conformation')
+  resendConformation(@Body() dto: ResetPasswordDto) {
+    return this.service.resendConformation(dto.email);
+  }
+
+  @HttpCode(HttpStatus.OK)
   @Get('confirm-password')
   confirmPassword(
     @Query('email') email,

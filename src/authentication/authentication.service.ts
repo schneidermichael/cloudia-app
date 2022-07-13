@@ -51,6 +51,25 @@ export class AuthenticationService {
     }
   }
 
+  async resendConformation(email: string) {
+    try {
+      const user = await this.prisma.user.findUnique({
+        where: {
+          email: email,
+        },
+      });
+      await this.mailService.sendUserConfirmation(user, user.confirm_token);
+      return { user: user.email, status: 'please activate' };
+    } catch (error) {
+      if (error instanceof PrismaClientKnownRequestError) {
+        if (error.code == 'P2008') {
+          throw new NotFoundException('User not found');
+        }
+      }
+      throw error;
+    }
+  }
+
   /* istanbul ignore next */
   async confirm(token: string) {
     try {
