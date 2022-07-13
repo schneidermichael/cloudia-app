@@ -11,11 +11,11 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from '@prisma/client';
-import { UserDto } from './dto/user.dto';
 import { JwtGuard } from '../authentication/guard/jwt.guard';
 import { GetUserProfile } from '../authentication/decorator/get-user-profile.decorator';
 import { ApiExcludeController } from '@nestjs/swagger';
 import { ChangePasswordDto } from './dto/change-password.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @ApiExcludeController()
 @UseGuards(JwtGuard)
@@ -32,7 +32,7 @@ export class UserController {
   async editProfile(
     @GetUserProfile() user: User,
     @Param('id', new ParseIntPipe()) id,
-    @Body() dto: UserDto,
+    @Body() dto: UpdateUserDto,
   ) {
     if (user.id != id)
       throw new ForbiddenException('You are not allowed to edit this user');

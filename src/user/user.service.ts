@@ -6,25 +6,18 @@ import {
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
 import * as argon from 'argon2';
 import { PrismaService } from '../prisma/prisma.service';
-import { UserDto } from './dto/user.dto';
 import { User } from '@prisma/client';
 import { ChangePasswordDto } from './dto/change-password.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UserService {
   constructor(private prisma: PrismaService) {}
 
   /* istanbul ignore next */
-  async editProfile(id: number, dto: UserDto) {
+  async editProfile(id: number, dto: UpdateUserDto) {
     try {
-      const user = await this.prisma.user.update({
-        select: {
-          id: true,
-          first_name: Boolean(dto.first_name),
-          last_name: Boolean(dto.last_name),
-          email: true,
-          password: Boolean(dto.password),
-        },
+      return await this.prisma.user.update({
         where: {
           id: id,
         },
@@ -32,11 +25,8 @@ export class UserService {
           first_name: dto.first_name || undefined,
           last_name: dto.last_name || undefined,
           email: dto.email || undefined,
-          password: dto.password ? await argon.hash(dto.password) : undefined,
         },
       });
-      if (user) delete user.password;
-      return user;
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code == 'P2008') {
