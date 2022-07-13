@@ -56,6 +56,7 @@ export class AuthenticationService {
           email: email,
         },
       });
+      if (!user) throw new ForbiddenException('User not available');
       await this.mailService.sendUserConfirmation(
         user,
         user.confirm_token,

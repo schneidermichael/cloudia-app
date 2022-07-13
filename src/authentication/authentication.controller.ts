@@ -44,7 +44,7 @@ export class AuthenticationController {
   @HttpCode(HttpStatus.OK)
   @Post('resend-conformation')
   resendConformation(@Body() dto: ResendConformationDto) {
-    return this.service.resendConformation(dto.email,dto.host);
+    return this.service.resendConformation(dto.email, dto.host);
   }
 
   @HttpCode(HttpStatus.OK)
