@@ -12,6 +12,7 @@ import { ResetPasswordDto } from './dto/reset-password.dto';
 import { UserDto } from '../user/dto/user.dto';
 import { AuthenticationDto } from './dto/authentication.dto';
 import { ApiExcludeController } from '@nestjs/swagger';
+import { ResendConformationDto } from "./dto/resend-conformation";
 
 @ApiExcludeController()
 @Controller('authentication')
@@ -42,8 +43,8 @@ export class AuthenticationController {
 
   @HttpCode(HttpStatus.OK)
   @Post('resend-conformation')
-  resendConformation(@Body() dto: ResetPasswordDto) {
-    return this.service.resendConformation(dto.email);
+  resendConformation(@Body() dto: ResendConformationDto) {
+    return this.service.resendConformation(dto.email,dto.host);
   }
 
   @HttpCode(HttpStatus.OK)

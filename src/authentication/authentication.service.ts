@@ -38,8 +38,7 @@ export class AuthenticationService {
         },
       });
 
-      console.log(user.email);
-      await this.mailService.sendUserConfirmation(user, token);
+      await this.mailService.sendUserConfirmation(user, token, dto.host);
       return { user: user.email, status: 'please activate' };
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
@@ -51,14 +50,18 @@ export class AuthenticationService {
     }
   }
 
-  async resendConformation(email: string) {
+  async resendConformation(email: string, host: string) {
     try {
       const user = await this.prisma.user.findUnique({
         where: {
           email: email,
         },
       });
-      await this.mailService.sendUserConfirmation(user, user.confirm_token);
+      await this.mailService.sendUserConfirmation(
+        user,
+        user.confirm_token,
+        host,
+      );
       return { user: user.email, status: 'please activate' };
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
