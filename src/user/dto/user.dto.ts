@@ -21,6 +21,7 @@ export class UserDto {
   @IsString()
   password: string;
 
+  @IsOptional()
   @IsString()
   host: string;
 }

@@ -37,6 +37,7 @@ export class AuthenticationService {
         },
       });
 
+      console.log(dto.host);
       await this.mailService.sendUserConfirmation(user, token, dto.host);
       return { user: user.email, status: 'please activate' };
     } catch (error) {
